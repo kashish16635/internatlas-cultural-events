@@ -1,0 +1,11 @@
+{
+  "name": "internatlas-cultural-events-fullstack",
+  "version": "1.0.0",
+  "description": "InternAtlas - Cultural Events & College Fests Module (Full Stack)",
+  "scripts": {
+    "server": "cd server && npm start",
+    "client": "cd client && npm run dev",
+    "install:all": "cd server && npm install && cd ../client && npm install"
+  },
+  "keywords": ["internatlas", "cultural-events", "college-fest", "fullstack", "react", "express"]
+}

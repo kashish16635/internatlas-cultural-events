@@ -1,0 +1,58 @@
+[
+  {
+    "registrationId": "REG-IA-58037-6847",
+    "eventId": "cult-001",
+    "eventTitle": "Livewire: Battle of the Bands 2026",
+    "festName": "Mood Indigo 2026",
+    "college": "IIT Bombay",
+    "venue": "Gymkhana Grounds, IIT Bombay Campus, Powai",
+    "dates": "Oct 24 - Oct 26, 2026",
+    "participantType": "team",
+    "fullName": "Rishitha Sharma",
+    "email": "rishitha@college.edu",
+    "phone": "+919876543211",
+    "collegeName": "BITS Pilani",
+    "yearOfStudy": "Pre-final Year",
+    "teamName": "Pilani Rockers",
+    "members": [
+      {
+        "name": "Varun",
+        "role": "Vocalist"
+      }
+    ],
+    "entryFee": 0,
+    "feeStatus": "Free Pass",
+    "registeredAt": "2026-09-15T06:47:38.037Z",
+    "status": "Confirmed",
+    "qrCodeToken": "IA-PASS-CULT-001-6847"
+  },
+  {
+    "registrationId": "REG-2026-91823",
+    "eventId": "cult-001",
+    "eventTitle": "Livewire: Battle of the Bands 2026",
+    "college": "IIT Bombay",
+    "teamType": "team",
+    "teamName": "The Sonic Velvet",
+    "leaderName": "Kashish Khichi",
+    "leaderEmail": "kashish.khichi@college.edu",
+    "leaderPhone": "+91 98765 43210",
+    "collegeName": "Delhi Technological University",
+    "members": [
+      {
+        "name": "Aman Verma",
+        "role": "Lead Guitar"
+      },
+      {
+        "name": "Rohan Das",
+        "role": "Bass"
+      },
+      {
+        "name": "Siddharth Nair",
+        "role": "Drums"
+      }
+    ],
+    "registeredAt": "2026-09-15T11:45:00.000Z",
+    "status": "Confirmed",
+    "qrCodeToken": "TICKET-CULT-91823-OK"
+  }
+]
