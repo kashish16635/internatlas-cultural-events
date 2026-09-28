@@ -21,7 +21,7 @@ const initialProfileData = {
   phone: "+91 9713424201",
   careerObjective: "B.Tech CSE student skilled in React.js, Python scripting, and GenAI. Experienced in building responsive dashboards, Gemini API integrations, and location-based telemetry systems. Seeking an engineering role to contribute full-stack development skills to scalable real-world projects.",
   github: "https://github.com/kashish16635",
-  linkedin: "https://linkedin.com/in/kashish-khichi",
+  linkedin: "https://linkedin.com/in/kashia-khichi",
   portfolio: "https://kashishkhichi.dev",
   education: [
     {
@@ -226,36 +226,36 @@ export default function StudentProfile({ onNavigateToEvents }) {
   };
 
   return (
-    <div className="ish-wrapper">
+    <div className="ia-wrapper">
       {/* Top Navbar */}
-      <header className="ish-header">
-        <div className="ish-header-container">
+      <header className="ia-header">
+        <div className="ia-header-container">
           <div style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
-            <span className="ish-logo">
-              <span className="ish-logo-main">InternAtlas</span>
+            <span className="ia-logo">
+              <span className="ia-logo-main">InternAtlas</span>
             </span>
           </div>
 
-          <div className="ish-header-right">
-            <span className="ish-nav-link" onClick={() => setActiveView("resume")}>
+          <div className="ia-header-right">
+            <span className="ia-nav-link" onClick={() => setActiveView("resume")}>
               Internships
             </span>
-            <span className="ish-nav-link">
-              Courses <span className="ish-offer-pill">OFFER</span>
+            <span className="ia-nav-link">
+              Courses <span className="ia-offer-pill">OFFER</span>
             </span>
-            <span className="ish-nav-link" onClick={() => setActiveView("resume")}>
+            <span className="ia-nav-link" onClick={() => setActiveView("resume")}>
               Jobs
             </span>
 
             {/* Avatar Pill Button with HOVER */}
             <div
-              className="ish-avatar-wrapper"
+              className="ia-avatar-wrapper"
               ref={dropdownRef}
               onMouseEnter={() => setIsDropdownOpen(true)}
               onMouseLeave={() => setIsDropdownOpen(false)}
             >
               <div
-                className="ish-avatar-btn"
+                className="ia-avatar-btn"
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 title="Hover or click to view profile menu"
               >
@@ -263,25 +263,25 @@ export default function StudentProfile({ onNavigateToEvents }) {
                 <ChevronDown size={12} style={{ marginLeft: '2px' }} />
               </div>
 
-              {/* USER POPUP DROPDOWN (Exact Internshala Layout) */}
+              {/* USER POPUP DROPDOWN (Exact internatlas Layout) */}
               {isDropdownOpen && (
-                <div className="ish-dropdown-menu">
-                <div className="ish-dropdown-header">
-                  <p className="ish-dropdown-name">{profile.fullName}</p>
-                  <p className="ish-dropdown-email">{profile.email}</p>
+                <div className="ia-dropdown-menu">
+                <div className="ia-dropdown-header">
+                  <p className="ia-dropdown-name">{profile.fullName}</p>
+                  <p className="ia-dropdown-email">{profile.email}</p>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <div className="ish-rating-badge">
-                      <Star size={13} className="ish-rating-star" fill="#eab308" />
+                    <div className="ia-rating-badge">
+                      <Star size={13} className="ia-rating-star" fill="#eab308" />
                       <span>4.5</span>
                     </div>
-                    <span className="ish-rating-link">Know More &gt;</span>
+                    <span className="ia-rating-link">Know More &gt;</span>
                   </div>
                 </div>
 
-                <ul className="ish-dropdown-list">
+                <ul className="ia-dropdown-list">
                   <li>
                     <span
-                      className="ish-dropdown-item"
+                      className="ia-dropdown-item"
                       onClick={() => {
                         setActiveView("resume");
                         setIsDropdownOpen(false);
@@ -292,7 +292,7 @@ export default function StudentProfile({ onNavigateToEvents }) {
                   </li>
                   <li>
                     <span
-                      className="ish-dropdown-item"
+                      className="ia-dropdown-item"
                       onClick={() => {
                         setActiveView("applications");
                         setIsDropdownOpen(false);
@@ -303,7 +303,7 @@ export default function StudentProfile({ onNavigateToEvents }) {
                   </li>
                   <li>
                     <span
-                      className="ish-dropdown-item"
+                      className="ia-dropdown-item"
                       onClick={() => {
                         setActiveView("bookmarks");
                         setIsDropdownOpen(false);
@@ -314,8 +314,8 @@ export default function StudentProfile({ onNavigateToEvents }) {
                   </li>
                   <li>
                     <span
-                      className="ish-dropdown-item"
-                      style={{ fontWeight: 700, color: '#008bdc' }}
+                      className="ia-dropdown-item"
+                      style={{ fontWeight: 700, color: '#2563EB' }}
                       onClick={() => {
                         setActiveView("resume");
                         setIsDropdownOpen(false);
@@ -326,7 +326,7 @@ export default function StudentProfile({ onNavigateToEvents }) {
                   </li>
                   <li>
                     <span
-                      className="ish-dropdown-item"
+                      className="ia-dropdown-item"
                       onClick={() => {
                         setActiveView("preferences");
                         setIsDropdownOpen(false);
@@ -336,13 +336,13 @@ export default function StudentProfile({ onNavigateToEvents }) {
                     </span>
                   </li>
                   <li>
-                    <span className="ish-dropdown-item">Safety Tips</span>
+                    <span className="ia-dropdown-item">Safety Tips</span>
                   </li>
                   <li>
-                    <span className="ish-dropdown-item">Help Center</span>
+                    <span className="ia-dropdown-item">Help Center</span>
                   </li>
                   <li>
-                    <span className="ish-dropdown-item" onClick={onNavigateToEvents} style={{ color: '#008bdc' }}>
+                    <span className="ia-dropdown-item" onClick={onNavigateToEvents} style={{ color: '#2563EB' }}>
                       Switch to Cultural Events
                     </span>
                   </li>
@@ -355,27 +355,27 @@ export default function StudentProfile({ onNavigateToEvents }) {
       </header>
 
       {/* Main Content Area */}
-      <div className="ish-main-container">
+      <div className="ia-main-container">
         {/* ======================================================== */}
-        {/* VIEW 1: RESUME BUILDER (Exact Internshala 2-Column Sheet) */}
+        {/* VIEW 1: RESUME BUILDER (Exact internatlas 2-Column Sheet) */}
         {/* ======================================================== */}
         {activeView === "resume" && (
           <div>
-            <div className="ish-back-link" onClick={onNavigateToEvents}>
+            <div className="ia-back-link" onClick={onNavigateToEvents}>
               <ChevronLeft size={16} />
               <span>Back</span>
             </div>
 
-            <h1 className="ish-page-title-center">InternAtlas Resume</h1>
+            <h1 className="ia-page-title-center">InternAtlas Resume</h1>
 
             {/* 4 Sections Need Attention Banner */}
-            <div className="ish-attention-banner">
-              <div className="ish-banner-left">
+            <div className="ia-attention-banner">
+              <div className="ia-banner-left">
                 <Lightbulb size={18} color="#0284c7" />
                 <span>4 sections in your InternAtlas resume need attention</span>
               </div>
               <button
-                className="ish-review-btn"
+                className="ia-review-btn"
                 onClick={() => alert("Profile Review: Add 1 more verified internship and project link to achieve 100% profile score!")}
               >
                 Review Now
@@ -383,20 +383,20 @@ export default function StudentProfile({ onNavigateToEvents }) {
             </div>
 
             {/* Resume Sheet */}
-            <div className="ish-paper-sheet">
-              <div className="ish-sheet-top-caption">
+            <div className="ia-paper-sheet">
+              <div className="ia-sheet-top-caption">
                 This is the resume companies will see when you apply
               </div>
 
-              <div className="ish-sheet-body">
+              <div className="ia-sheet-body">
                 {/* Personal Info Header */}
-                <div className="ish-sheet-header">
+                <div className="ia-sheet-header">
                   <div>
-                    <h2 className="ish-person-name">
+                    <h2 className="ia-person-name">
                       {profile.fullName}
                       <Edit2
                         size={16}
-                        className="ish-edit-icon"
+                        className="ia-edit-icon"
                         onClick={() => {
                           setPersonalForm({
                             fullName: profile.fullName,
@@ -408,28 +408,28 @@ export default function StudentProfile({ onNavigateToEvents }) {
                         }}
                       />
                     </h2>
-                    <div className="ish-person-info">
+                    <div className="ia-person-info">
                       <div>{profile.email}</div>
                       <div>{profile.phone}</div>
                       <div>{profile.location}</div>
                     </div>
                   </div>
 
-                  <span className="ish-download-link" onClick={handlePrintResume}>
+                  <span className="ia-download-link" onClick={handlePrintResume}>
                     <Download size={14} />
                     <span>Download Resume</span>
                   </span>
                 </div>
 
                 {/* 1. CAREER OBJECTIVE */}
-                <div className="ish-section-row">
-                  <div className="ish-col-left">Career Objective</div>
-                  <div className="ish-col-right">
-                    <div className="ish-content-card">
-                      <div className="ish-card-actions">
+                <div className="ia-section-row">
+                  <div className="ia-col-left">Career Objective</div>
+                  <div className="ia-col-right">
+                    <div className="ia-content-card">
+                      <div className="ia-card-actions">
                         <Edit2
                           size={14}
-                          className="ish-action-icon"
+                          className="ia-action-icon"
                           onClick={() => setEditModal("objective")}
                         />
                       </div>
@@ -441,13 +441,13 @@ export default function StudentProfile({ onNavigateToEvents }) {
                 </div>
 
                 {/* 2. EDUCATION */}
-                <div className="ish-section-row">
-                  <div className="ish-col-left">Education</div>
-                  <div className="ish-col-right">
+                <div className="ia-section-row">
+                  <div className="ia-col-left">Education</div>
+                  <div className="ia-col-right">
                     {(profile?.education || []).map((edu) => (
-                      <div key={edu.id} className="ish-content-card">
-                        <div className="ish-card-actions">
-                          <Edit2 size={14} className="ish-action-icon" onClick={() => alert("Edit Education")} />
+                      <div key={edu.id} className="ia-content-card">
+                        <div className="ia-card-actions">
+                          <Edit2 size={14} className="ia-action-icon" onClick={() => alert("Edit Education")} />
                         </div>
                         <h4 style={{ margin: '0 0 2px 0', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>
                           {edu.degree}
@@ -463,33 +463,33 @@ export default function StudentProfile({ onNavigateToEvents }) {
                         </p>
                       </div>
                     ))}
-                    <span className="ish-add-section-link" onClick={() => alert("Add education form")}>
+                    <span className="ia-add-section-link" onClick={() => alert("Add education form")}>
                       <Plus size={12} /> Add education
                     </span>
                   </div>
                 </div>
 
                 {/* 3. JOBS */}
-                <div className="ish-section-row">
-                  <div className="ish-col-left">Jobs</div>
-                  <div className="ish-col-right">
+                <div className="ia-section-row">
+                  <div className="ia-col-left">Jobs</div>
+                  <div className="ia-col-right">
                     <p style={{ margin: 0, fontSize: '12px', color: '#94a3b8', fontStyle: 'italic' }}>
                       No full-time jobs added yet.
                     </p>
-                    <span className="ish-add-section-link" onClick={() => alert("Add job form")}>
+                    <span className="ia-add-section-link" onClick={() => alert("Add job form")}>
                       <Plus size={12} /> Add job
                     </span>
                   </div>
                 </div>
 
                 {/* 4. INTERNSHIPS */}
-                <div className="ish-section-row">
-                  <div className="ish-col-left">Internships</div>
-                  <div className="ish-col-right">
+                <div className="ia-section-row">
+                  <div className="ia-col-left">Internships</div>
+                  <div className="ia-col-right">
                     {(profile?.internships || []).map((int) => (
-                      <div key={int.id} className="ish-content-card">
-                        <div className="ish-card-actions">
-                          <Edit2 size={14} className="ish-action-icon" onClick={() => alert("Edit Internship")} />
+                      <div key={int.id} className="ia-content-card">
+                        <div className="ia-card-actions">
+                          <Edit2 size={14} className="ia-action-icon" onClick={() => alert("Edit Internship")} />
                         </div>
                         <h4 style={{ margin: '0 0 2px 0', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>
                           {int.title}
@@ -507,20 +507,20 @@ export default function StudentProfile({ onNavigateToEvents }) {
                         </ul>
                       </div>
                     ))}
-                    <span className="ish-add-section-link" onClick={() => alert("Add internship form")}>
+                    <span className="ia-add-section-link" onClick={() => alert("Add internship form")}>
                       <Plus size={12} /> Add internship
                     </span>
                   </div>
                 </div>
 
                 {/* 5. POSITIONS OF RESPONSIBILITY */}
-                <div className="ish-section-row">
-                  <div className="ish-col-left">Positions of Responsibility</div>
-                  <div className="ish-col-right">
+                <div className="ia-section-row">
+                  <div className="ia-col-left">Positions of Responsibility</div>
+                  <div className="ia-col-right">
                     {(profile?.responsibilities || []).map((por) => (
-                      <div key={por.id} className="ish-content-card">
-                        <div className="ish-card-actions">
-                          <Edit2 size={14} className="ish-action-icon" onClick={() => alert("Edit POR")} />
+                      <div key={por.id} className="ia-content-card">
+                        <div className="ia-card-actions">
+                          <Edit2 size={14} className="ia-action-icon" onClick={() => alert("Edit POR")} />
                         </div>
                         <h4 style={{ margin: '0 0 2px 0', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>
                           {por.title}
@@ -533,20 +533,20 @@ export default function StudentProfile({ onNavigateToEvents }) {
                         </p>
                       </div>
                     ))}
-                    <span className="ish-add-section-link" onClick={() => alert("Add position form")}>
+                    <span className="ia-add-section-link" onClick={() => alert("Add position form")}>
                       <Plus size={12} /> Add position of responsibility
                     </span>
                   </div>
                 </div>
 
                 {/* 6. TRAININGS / COURSES */}
-                <div className="ish-section-row">
-                  <div className="ish-col-left">Trainings / Courses</div>
-                  <div className="ish-col-right">
+                <div className="ia-section-row">
+                  <div className="ia-col-left">Trainings / Courses</div>
+                  <div className="ia-col-right">
                     {(profile?.trainings || []).map((trn) => (
-                      <div key={trn.id} className="ish-content-card">
-                        <div className="ish-card-actions">
-                          <Edit2 size={14} className="ish-action-icon" onClick={() => alert("Edit training")} />
+                      <div key={trn.id} className="ia-content-card">
+                        <div className="ia-card-actions">
+                          <Edit2 size={14} className="ia-action-icon" onClick={() => alert("Edit training")} />
                         </div>
                         <h4 style={{ margin: '0 0 2px 0', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>
                           {trn.title}
@@ -559,20 +559,20 @@ export default function StudentProfile({ onNavigateToEvents }) {
                         </p>
                       </div>
                     ))}
-                    <span className="ish-add-section-link" onClick={() => alert("Add training form")}>
+                    <span className="ia-add-section-link" onClick={() => alert("Add training form")}>
                       <Plus size={12} /> Add training/ course
                     </span>
                   </div>
                 </div>
 
                 {/* 7. ACADEMICS / PERSONAL PROJECTS */}
-                <div className="ish-section-row">
-                  <div className="ish-col-left">Academics / Personal Projects</div>
-                  <div className="ish-col-right">
+                <div className="ia-section-row">
+                  <div className="ia-col-left">Academics / Personal Projects</div>
+                  <div className="ia-col-right">
                     {(profile?.projects || []).map((proj) => (
-                      <div key={proj.id} className="ish-content-card">
-                        <div className="ish-card-actions">
-                          <Edit2 size={14} className="ish-action-icon" onClick={() => alert("Edit project")} />
+                      <div key={proj.id} className="ia-content-card">
+                        <div className="ia-card-actions">
+                          <Edit2 size={14} className="ia-action-icon" onClick={() => alert("Edit project")} />
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                           <h4 style={{ margin: 0, fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>
@@ -583,7 +583,7 @@ export default function StudentProfile({ onNavigateToEvents }) {
                               href={proj.liveUrl}
                               target="_blank"
                               rel="noreferrer"
-                              style={{ display: 'inline-flex', alignItems: 'center', gap: '2px', color: '#008bdc', fontSize: '12px', textDecoration: 'none', fontWeight: 600 }}
+                              style={{ display: 'inline-flex', alignItems: 'center', gap: '2px', color: '#2563EB', fontSize: '12px', textDecoration: 'none', fontWeight: 600 }}
                             >
                               <span>Project link</span>
                               <ExternalLink size={11} />
@@ -598,16 +598,16 @@ export default function StudentProfile({ onNavigateToEvents }) {
                         </p>
                       </div>
                     ))}
-                    <span className="ish-add-section-link" onClick={() => alert("Add project form")}>
+                    <span className="ia-add-section-link" onClick={() => alert("Add project form")}>
                       <Plus size={12} /> Add academic/ personal project
                     </span>
                   </div>
                 </div>
 
                 {/* 8. SKILLS */}
-                <div className="ish-section-row">
-                  <div className="ish-col-left">Skills</div>
-                  <div className="ish-col-right">
+                <div className="ia-section-row">
+                  <div className="ia-col-left">Skills</div>
+                  <div className="ia-col-right">
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '8px' }}>
                       {(profile?.skills || []).map((skill) => (
                         <div
@@ -629,52 +629,52 @@ export default function StudentProfile({ onNavigateToEvents }) {
                         </div>
                       ))}
                     </div>
-                    <span className="ish-add-section-link" onClick={() => alert("Add skill form")}>
+                    <span className="ia-add-section-link" onClick={() => alert("Add skill form")}>
                       <Plus size={12} /> Add skill
                     </span>
                   </div>
                 </div>
 
                 {/* 9. PORTFOLIO / WORK SAMPLES */}
-                <div className="ish-section-row">
-                  <div className="ish-col-left">Portfolio / Work Samples</div>
-                  <div className="ish-col-right">
+                <div className="ia-section-row">
+                  <div className="ia-col-left">Portfolio / Work Samples</div>
+                  <div className="ia-col-right">
                     <div style={{ fontSize: '13px', lineHeight: 2 }}>
                       <div>
                         <strong>GitHub profile: </strong>
-                        <a href={profile.github} target="_blank" rel="noreferrer" style={{ color: '#008bdc' }}>
+                        <a href={profile.github} target="_blank" rel="noreferrer" style={{ color: '#2563EB' }}>
                           {profile.github}
                         </a>
                       </div>
                       <div>
                         <strong>Developer portfolio: </strong>
-                        <a href={profile.portfolio} target="_blank" rel="noreferrer" style={{ color: '#008bdc' }}>
+                        <a href={profile.portfolio} target="_blank" rel="noreferrer" style={{ color: '#2563EB' }}>
                           {profile.portfolio}
                         </a>
                       </div>
                       <div>
                         <strong>LinkedIn profile: </strong>
-                        <a href={profile.linkedin} target="_blank" rel="noreferrer" style={{ color: '#008bdc' }}>
+                        <a href={profile.linkedin} target="_blank" rel="noreferrer" style={{ color: '#2563EB' }}>
                           {profile.linkedin}
                         </a>
                       </div>
                     </div>
-                    <span className="ish-add-section-link" onClick={() => alert("Add portfolio sample")}>
+                    <span className="ia-add-section-link" onClick={() => alert("Add portfolio sample")}>
                       <Plus size={12} /> Add portfolio/ work sample
                     </span>
                   </div>
                 </div>
 
                 {/* 10. ACCOMPLISHMENTS */}
-                <div className="ish-section-row">
-                  <div className="ish-col-left">Accomplishments</div>
-                  <div className="ish-col-right">
+                <div className="ia-section-row">
+                  <div className="ia-col-left">Accomplishments</div>
+                  <div className="ia-col-right">
                     <ul style={{ margin: 0, paddingLeft: '18px', fontSize: '12px', color: '#475569', lineHeight: 1.8 }}>
                       <li>School Scholar Badge recipient for consecutive academic distinction at DPS R.K. Puram.</li>
                       <li>State-level Junior Science Olympiad Qualifier with Merit Distinction in Mathematics.</li>
                       <li>Ranked top 10% in DTU departmental algorithmic coding and data structures assessments.</li>
                     </ul>
-                    <span className="ish-add-section-link" onClick={() => alert("Add accomplishment form")}>
+                    <span className="ia-add-section-link" onClick={() => alert("Add accomplishment form")}>
                       <Plus size={12} /> Add accomplishment/ additional detail
                     </span>
                   </div>
@@ -688,8 +688,8 @@ export default function StudentProfile({ onNavigateToEvents }) {
         {/* VIEW 2: MY APPLICATIONS TABLE */}
         {/* ======================================================== */}
         {activeView === "applications" && (
-          <div className="ish-apps-container">
-            <div className="ish-back-link" onClick={() => setActiveView("resume")}>
+          <div className="ia-apps-container">
+            <div className="ia-back-link" onClick={() => setActiveView("resume")}>
               <ChevronLeft size={16} />
               <span>Back to Resume</span>
             </div>
@@ -698,8 +698,8 @@ export default function StudentProfile({ onNavigateToEvents }) {
               My Applications
             </h1>
 
-            <div className="ish-apps-table-card">
-              <table className="ish-apps-table">
+            <div className="ia-apps-table-card">
+              <table className="ia-apps-table">
                 <thead>
                   <tr>
                     <th>Company</th>
@@ -734,7 +734,7 @@ export default function StudentProfile({ onNavigateToEvents }) {
                       </td>
                       <td style={{ textAlign: 'center' }}>
                         <span
-                          style={{ color: '#008bdc', fontWeight: 600, cursor: 'pointer' }}
+                          style={{ color: '#2563EB', fontWeight: 600, cursor: 'pointer' }}
                           onClick={() => alert(`Review application for ${app.role} at ${app.company}`)}
                         >
                           View
@@ -751,8 +751,8 @@ export default function StudentProfile({ onNavigateToEvents }) {
 
       {/* EDIT MODAL: PERSONAL DETAILS */}
       {editModal === "personal" && (
-        <div className="ish-modal-overlay">
-          <div className="ish-modal-box">
+        <div className="ia-modal-overlay">
+          <div className="ia-modal-box">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e2e8f0', paddingBottom: '12px', marginBottom: '16px' }}>
               <h3 style={{ margin: 0, fontSize: '15px', fontWeight: 800 }}>Personal Details</h3>
               <X size={16} color="#94a3b8" style={{ cursor: 'pointer' }} onClick={() => setEditModal(null)} />
@@ -813,7 +813,7 @@ export default function StudentProfile({ onNavigateToEvents }) {
                 </button>
                 <button
                   type="submit"
-                  style={{ padding: '6px 16px', background: '#008bdc', color: '#ffffff', border: 'none', borderRadius: '4px', fontWeight: 700, cursor: 'pointer', fontSize: '12px' }}
+                  style={{ padding: '6px 16px', background: '#2563EB', color: '#ffffff', border: 'none', borderRadius: '4px', fontWeight: 700, cursor: 'pointer', fontSize: '12px' }}
                 >
                   Save
                 </button>
@@ -825,8 +825,8 @@ export default function StudentProfile({ onNavigateToEvents }) {
 
       {/* EDIT MODAL: CAREER OBJECTIVE */}
       {editModal === "objective" && (
-        <div className="ish-modal-overlay">
-          <div className="ish-modal-box">
+        <div className="ia-modal-overlay">
+          <div className="ia-modal-box">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e2e8f0', paddingBottom: '12px', marginBottom: '16px' }}>
               <h3 style={{ margin: 0, fontSize: '15px', fontWeight: 800 }}>Career Objective</h3>
               <X size={16} color="#94a3b8" style={{ cursor: 'pointer' }} onClick={() => setEditModal(null)} />
@@ -855,7 +855,7 @@ export default function StudentProfile({ onNavigateToEvents }) {
                 </button>
                 <button
                   type="submit"
-                  style={{ padding: '6px 16px', background: '#008bdc', color: '#ffffff', border: 'none', borderRadius: '4px', fontWeight: 700, cursor: 'pointer', fontSize: '12px' }}
+                  style={{ padding: '6px 16px', background: '#2563EB', color: '#ffffff', border: 'none', borderRadius: '4px', fontWeight: 700, cursor: 'pointer', fontSize: '12px' }}
                 >
                   Save
                 </button>

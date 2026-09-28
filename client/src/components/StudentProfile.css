@@ -1,8 +1,8 @@
 /* ========================================================
-   InternAtlas - 1:1 Exact Internshala Student Suite & Resume
+   InternAtlas - Proprietary Student Profile & Resume Suite
    ======================================================== */
 
-.ish-wrapper {
+.ia-wrapper {
   min-height: 100vh;
   background-color: #f8fafc;
   color: #333333;
@@ -11,7 +11,7 @@
 }
 
 /* Header */
-.ish-header {
+.ia-header {
   position: sticky;
   top: 0;
   z-index: 50;
@@ -21,7 +21,7 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
-.ish-header-container {
+.ia-header-container {
   max-width: 1100px;
   margin: 0 auto;
   height: 100%;
@@ -31,10 +31,10 @@
   padding: 0 24px;
 }
 
-.ish-logo {
+.ia-logo {
   font-size: 22px;
   font-weight: 900;
-  color: #008bdc;
+  color: #2563EB;
   text-decoration: none;
   letter-spacing: -0.03em;
   display: flex;
@@ -42,18 +42,18 @@
   gap: 4px;
 }
 
-.ish-logo-main {
-  color: #008bdc;
+.ia-logo-main {
+  color: #2563EB;
 }
 
-.ish-header-right {
+.ia-header-right {
   display: flex;
   align-items: center;
   gap: 20px;
   position: relative;
 }
 
-.ish-nav-link {
+.ia-nav-link {
   font-size: 13px;
   font-weight: 500;
   color: #475569;
@@ -61,11 +61,11 @@
   cursor: pointer;
 }
 
-.ish-nav-link:hover {
-  color: #008bdc;
+.ia-nav-link:hover {
+  color: #2563EB;
 }
 
-.ish-offer-pill {
+.ia-offer-pill {
   background: #ff7600;
   color: #ffffff;
   font-size: 10px;
@@ -75,7 +75,7 @@
   margin-left: 4px;
 }
 
-.ish-avatar-wrapper {
+.ia-avatar-wrapper {
   position: relative;
   display: flex;
   align-items: center;
@@ -84,12 +84,12 @@
   padding: 6px 0;
 }
 
-.ish-avatar-btn {
+.ia-avatar-btn {
   width: 36px;
   height: 36px;
   border-radius: 50%;
   background: #e0f2fe;
-  color: #008bdc;
+  color: #2563EB;
   border: 1px solid #bae6fd;
   display: flex;
   align-items: center;
@@ -99,8 +99,8 @@
   cursor: pointer;
 }
 
-/* User Dropdown Menu Popup (Internshala Style) */
-.ish-dropdown-menu {
+/* User Dropdown Menu Popup (internatlas Style) */
+.ia-dropdown-menu {
   position: absolute;
   top: 50px;
   right: 0;
@@ -114,26 +114,26 @@
   text-align: left;
 }
 
-.ish-dropdown-header {
+.ia-dropdown-header {
   padding: 0 16px 12px;
   border-bottom: 1px solid #f1f5f9;
 }
 
-.ish-dropdown-name {
+.ia-dropdown-name {
   font-size: 14px;
   font-weight: 700;
   color: #1e293b;
   margin: 0;
 }
 
-.ish-dropdown-email {
+.ia-dropdown-email {
   font-size: 11px;
   color: #64748b;
   margin: 2px 0 8px 0;
   word-break: break-all;
 }
 
-.ish-rating-badge {
+.ia-rating-badge {
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -142,24 +142,24 @@
   color: #475569;
 }
 
-.ish-rating-star {
+.ia-rating-star {
   color: #eab308;
 }
 
-.ish-rating-link {
+.ia-rating-link {
   font-size: 11px;
-  color: #008bdc;
+  color: #2563EB;
   margin-left: auto;
   cursor: pointer;
 }
 
-.ish-dropdown-list {
+.ia-dropdown-list {
   list-style: none;
   margin: 6px 0 0 0;
   padding: 0;
 }
 
-.ish-dropdown-item {
+.ia-dropdown-item {
   display: block;
   padding: 8px 16px;
   font-size: 13px;
@@ -169,31 +169,31 @@
   transition: all 0.15s;
 }
 
-.ish-dropdown-item:hover {
+.ia-dropdown-item:hover {
   background: #f8fafc;
-  color: #008bdc;
+  color: #2563EB;
 }
 
 /* Page Layout */
-.ish-main-container {
+.ia-main-container {
   max-width: 900px;
   margin: 24px auto 0;
   padding: 0 20px;
 }
 
-.ish-back-link {
+.ia-back-link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   font-size: 13px;
   font-weight: 600;
-  color: #008bdc;
+  color: #2563EB;
   text-decoration: none;
   margin-bottom: 20px;
   cursor: pointer;
 }
 
-.ish-page-title-center {
+.ia-page-title-center {
   text-align: center;
   font-size: 26px;
   font-weight: 800;
@@ -202,7 +202,7 @@
 }
 
 /* 4 Sections Need Attention Banner */
-.ish-attention-banner {
+.ia-attention-banner {
   background: #ebf7ff;
   border: 1px solid #c2e6fc;
   border-radius: 6px;
@@ -213,7 +213,7 @@
   margin-bottom: 24px;
 }
 
-.ish-banner-left {
+.ia-banner-left {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -222,8 +222,8 @@
   color: #0369a1;
 }
 
-.ish-review-btn {
-  background: #008bdc;
+.ia-review-btn {
+  background: #2563EB;
   color: #ffffff;
   border: none;
   padding: 6px 14px;
@@ -234,12 +234,12 @@
   transition: all 0.15s;
 }
 
-.ish-review-btn:hover {
+.ia-review-btn:hover {
   background: #0077bd;
 }
 
 /* Resume Paper Sheet */
-.ish-paper-sheet {
+.ia-paper-sheet {
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
@@ -247,7 +247,7 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
-.ish-sheet-top-caption {
+.ia-sheet-top-caption {
   background: #f8fafc;
   border-bottom: 1px solid #e2e8f0;
   text-align: center;
@@ -257,12 +257,12 @@
   font-weight: 500;
 }
 
-.ish-sheet-body {
+.ia-sheet-body {
   padding: 36px 40px;
 }
 
 /* Resume Personal Header */
-.ish-sheet-header {
+.ia-sheet-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -270,7 +270,7 @@
   padding-bottom: 24px;
 }
 
-.ish-person-name {
+.ia-person-name {
   font-size: 26px;
   font-weight: 800;
   color: #0f172a;
@@ -280,39 +280,39 @@
   gap: 8px;
 }
 
-.ish-edit-icon {
+.ia-edit-icon {
   color: #94a3b8;
   cursor: pointer;
 }
 
-.ish-edit-icon:hover {
-  color: #008bdc;
+.ia-edit-icon:hover {
+  color: #2563EB;
 }
 
-.ish-person-info {
+.ia-person-info {
   margin-top: 6px;
   font-size: 13px;
   color: #475569;
   line-height: 1.5;
 }
 
-.ish-download-link {
+.ia-download-link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: #008bdc;
+  color: #2563EB;
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
 }
 
-.ish-download-link:hover {
+.ia-download-link:hover {
   text-decoration: underline;
 }
 
 /* Two Column Resume Sections */
-.ish-section-row {
+.ia-section-row {
   display: grid;
   grid-template-columns: 200px 1fr;
   gap: 24px;
@@ -320,12 +320,12 @@
   padding: 24px 0;
 }
 
-.ish-section-row:last-child {
+.ia-section-row:last-child {
   border-bottom: none;
   padding-bottom: 0;
 }
 
-.ish-col-left {
+.ia-col-left {
   font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
@@ -334,11 +334,11 @@
   padding-top: 4px;
 }
 
-.ish-col-right {
+.ia-col-right {
   position: relative;
 }
 
-.ish-content-card {
+.ia-content-card {
   border: 1px solid #e2e8f0;
   border-radius: 6px;
   padding: 16px;
@@ -347,11 +347,11 @@
   position: relative;
 }
 
-.ish-content-card:last-child {
+.ia-content-card:last-child {
   margin-bottom: 0;
 }
 
-.ish-card-actions {
+.ia-card-actions {
   position: absolute;
   top: 14px;
   right: 14px;
@@ -360,39 +360,39 @@
   gap: 10px;
 }
 
-.ish-action-icon {
+.ia-action-icon {
   color: #94a3b8;
   cursor: pointer;
 }
 
-.ish-action-icon:hover {
+.ia-action-icon:hover {
   color: #0f172a;
 }
 
-.ish-add-section-link {
+.ia-add-section-link {
   display: inline-flex;
   align-items: center;
   gap: 4px;
   font-size: 12px;
   font-weight: 700;
-  color: #008bdc;
+  color: #2563EB;
   text-decoration: none;
   margin-top: 10px;
   cursor: pointer;
 }
 
-.ish-add-section-link:hover {
+.ia-add-section-link:hover {
   text-decoration: underline;
 }
 
-/* Applications Table (Internshala View) */
-.ish-apps-container {
+/* Applications Table (internatlas View) */
+.ia-apps-container {
   max-width: 1000px;
   margin: 24px auto 0;
   padding: 0 20px;
 }
 
-.ish-apps-table-card {
+.ia-apps-table-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
@@ -400,14 +400,14 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
 
-.ish-apps-table {
+.ia-apps-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
   font-size: 12px;
 }
 
-.ish-apps-table th {
+.ia-apps-table th {
   background: #f8fafc;
   color: #475569;
   font-weight: 700;
@@ -417,18 +417,18 @@
   border-bottom: 1px solid #e2e8f0;
 }
 
-.ish-apps-table td {
+.ia-apps-table td {
   padding: 14px 16px;
   border-bottom: 1px solid #f1f5f9;
   color: #334155;
 }
 
-.ish-apps-table tr:hover td {
+.ia-apps-table tr:hover td {
   background: #f8fafc;
 }
 
 /* Modals */
-.ish-modal-overlay {
+.ia-modal-overlay {
   position: fixed;
   inset: 0;
   z-index: 120;
@@ -439,7 +439,7 @@
   padding: 20px;
 }
 
-.ish-modal-box {
+.ia-modal-box {
   background: #ffffff;
   border-radius: 8px;
   width: 100%;
@@ -449,7 +449,7 @@
 }
 
 @media (max-width: 768px) {
-  .ish-section-row {
+  .ia-section-row {
     grid-template-columns: 1fr;
     gap: 10px;
   }
