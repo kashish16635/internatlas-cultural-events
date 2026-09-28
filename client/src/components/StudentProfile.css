@@ -1,12 +1,12 @@
 /* ========================================================
-   InternAtlas - Internshala Style Student Suite & Resume Builder
+   InternAtlas - 1:1 Exact Internshala Student Suite & Resume
    ======================================================== */
 
 .ish-wrapper {
   min-height: 100vh;
-  background-color: #f4f6f9;
+  background-color: #f8fafc;
   color: #333333;
-  font-family: 'Plus Jakarta Sans', Inter, system-ui, -apple-system, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   padding-bottom: 80px;
 }
 
@@ -15,178 +15,246 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  height: 56px;
+  height: 60px;
   background: #ffffff;
   border-bottom: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
 .ish-header-container {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 24px;
 }
 
 .ish-logo {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 900;
-  color: #071c46;
+  color: #008bdc;
   text-decoration: none;
   letter-spacing: -0.03em;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-.ish-logo-accent {
-  color: #1da1f2;
+.ish-logo-main {
+  color: #008bdc;
 }
 
-.ish-switch-btn {
-  font-size: 12px;
-  font-weight: 600;
+.ish-header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+.ish-nav-link {
+  font-size: 13px;
+  font-weight: 500;
   color: #475569;
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  padding: 6px 12px;
-  border-radius: 6px;
+  text-decoration: none;
   cursor: pointer;
-  transition: all 0.2s;
 }
 
-.ish-switch-btn:hover {
-  background: #f8fafc;
-  color: #0f172a;
+.ish-nav-link:hover {
+  color: #008bdc;
 }
 
-.ish-user-avatar {
+.ish-offer-pill {
+  background: #ff7600;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-left: 4px;
+}
+
+.ish-avatar-btn {
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: #1da1f2;
-  color: #ffffff;
+  background: #e0f2fe;
+  color: #008bdc;
+  border: 1px solid #bae6fd;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
   font-size: 13px;
-}
-
-/* Sub-nav Tabs (Internshala Style) */
-.ish-subnav {
-  position: sticky;
-  top: 56px;
-  z-index: 40;
-  background: #ffffff;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.ish-subnav-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  overflow-x: auto;
-}
-
-.ish-nav-tabs {
-  display: flex;
-  gap: 28px;
-}
-
-.ish-tab-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 4px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #64748b;
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
   cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s;
+  position: relative;
 }
 
-.ish-tab-btn:hover {
-  color: #0f172a;
+/* User Dropdown Menu Popup (Internshala Style) */
+.ish-dropdown-menu {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  width: 250px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  z-index: 100;
+  padding: 16px 0 8px;
+  text-align: left;
 }
 
-.ish-tab-btn.active {
-  color: #1da1f2;
-  border-bottom-color: #1da1f2;
+.ish-dropdown-header {
+  padding: 0 16px 12px;
+  border-bottom: 1px solid #f1f5f9;
 }
 
-.ish-badge-count {
-  background: #e0f2fe;
-  color: #0369a1;
-  font-size: 11px;
+.ish-dropdown-name {
+  font-size: 14px;
   font-weight: 700;
-  padding: 1px 7px;
-  border-radius: 999px;
+  color: #1e293b;
+  margin: 0;
 }
 
-.ish-download-btn {
+.ish-dropdown-email {
+  font-size: 11px;
+  color: #64748b;
+  margin: 2px 0 8px 0;
+  word-break: break-all;
+}
+
+.ish-rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.ish-rating-star {
+  color: #eab308;
+}
+
+.ish-rating-link {
+  font-size: 11px;
+  color: #008bdc;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.ish-dropdown-list {
+  list-style: none;
+  margin: 6px 0 0 0;
+  padding: 0;
+}
+
+.ish-dropdown-item {
+  display: block;
+  padding: 8px 16px;
+  font-size: 13px;
+  color: #334155;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ish-dropdown-item:hover {
+  background: #f8fafc;
+  color: #008bdc;
+}
+
+/* Page Layout */
+.ish-main-container {
+  max-width: 900px;
+  margin: 24px auto 0;
+  padding: 0 20px;
+}
+
+.ish-back-link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 14px;
-  border: 1px solid #1da1f2;
-  background: #ffffff;
-  color: #1da1f2;
-  border-radius: 6px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
+  color: #008bdc;
+  text-decoration: none;
+  margin-bottom: 20px;
   cursor: pointer;
-  transition: all 0.2s;
 }
 
-.ish-download-btn:hover {
-  background: #f0f9ff;
+.ish-page-title-center {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0 0 20px 0;
 }
 
-/* Main Container */
-.ish-main-container {
-  max-width: 1000px;
-  margin: 30px auto 0;
-  padding: 0 20px;
-}
-
-.ish-page-header {
+/* 4 Sections Need Attention Banner */
+.ish-attention-banner {
+  background: #ebf7ff;
+  border: 1px solid #c2e6fc;
+  border-radius: 6px;
+  padding: 12px 18px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 24px;
 }
 
-.ish-page-title {
-  font-size: 24px;
-  font-weight: 800;
-  color: #0f172a;
-  margin: 0;
+.ish-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #0369a1;
 }
 
-.ish-page-subtitle {
+.ish-review-btn {
+  background: #008bdc;
+  color: #ffffff;
+  border: none;
+  padding: 6px 14px;
   font-size: 12px;
-  color: #64748b;
-  margin-top: 4px;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ish-review-btn:hover {
+  background: #0077bd;
 }
 
 /* Resume Paper Sheet */
-.ish-resume-sheet {
+.ish-paper-sheet {
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  padding: 40px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
-.ish-resume-header {
+.ish-sheet-top-caption {
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: center;
+  padding: 8px 16px;
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.ish-sheet-body {
+  padding: 36px 40px;
+}
+
+/* Resume Personal Header */
+.ish-sheet-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -194,334 +262,187 @@
   padding-bottom: 24px;
 }
 
-.ish-user-name {
-  font-size: 28px;
+.ish-person-name {
+  font-size: 26px;
   font-weight: 800;
   color: #0f172a;
-  margin: 0 0 8px 0;
-}
-
-.ish-user-meta {
-  font-size: 13px;
-  color: #475569;
-  line-height: 1.6;
-}
-
-.ish-icon-btn {
-  background: none;
-  border: none;
-  color: #94a3b8;
-  cursor: pointer;
-  padding: 6px;
-  border-radius: 50%;
+  margin: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
+  gap: 8px;
 }
 
-.ish-icon-btn:hover {
-  background: #f1f5f9;
-  color: #0f172a;
+.ish-edit-icon {
+  color: #94a3b8;
+  cursor: pointer;
 }
 
-/* Resume Section */
-.ish-resume-section {
+.ish-edit-icon:hover {
+  color: #008bdc;
+}
+
+.ish-person-info {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.ish-download-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #008bdc;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.ish-download-link:hover {
+  text-decoration: underline;
+}
+
+/* Two Column Resume Sections */
+.ish-section-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 24px;
   border-bottom: 1px solid #e2e8f0;
   padding: 24px 0;
 }
 
-.ish-resume-section:last-child {
+.ish-section-row:last-child {
   border-bottom: none;
   padding-bottom: 0;
 }
 
-.ish-section-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-
-.ish-section-title {
-  font-size: 12px;
+.ish-col-left {
+  font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #64748b;
-  margin: 0;
+  padding-top: 4px;
 }
 
-.ish-add-btn {
+.ish-col-right {
+  position: relative;
+}
+
+.ish-content-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 12px;
+  background: #ffffff;
+  position: relative;
+}
+
+.ish-content-card:last-child {
+  margin-bottom: 0;
+}
+
+.ish-card-actions {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ish-action-icon {
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.ish-action-icon:hover {
+  color: #0f172a;
+}
+
+.ish-add-section-link {
   display: inline-flex;
   align-items: center;
   gap: 4px;
   font-size: 12px;
   font-weight: 700;
-  color: #1da1f2;
-  background: none;
-  border: none;
+  color: #008bdc;
+  text-decoration: none;
+  margin-top: 10px;
   cursor: pointer;
 }
 
-.ish-add-btn:hover {
+.ish-add-section-link:hover {
   text-decoration: underline;
 }
 
-/* Item Lists */
-.ish-item {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 18px;
+/* Applications Table (Internshala View) */
+.ish-apps-container {
+  max-width: 1000px;
+  margin: 24px auto 0;
+  padding: 0 20px;
 }
 
-.ish-item:last-child {
-  margin-bottom: 0;
-}
-
-.ish-item-title {
-  font-size: 14px;
-  font-weight: 700;
-  color: #0f172a;
-  margin: 0;
-}
-
-.ish-item-subtitle {
-  font-size: 13px;
-  font-weight: 500;
-  color: #334155;
-  margin: 2px 0 0 0;
-}
-
-.ish-item-date {
-  font-size: 12px;
-  color: #64748b;
-  margin: 2px 0 0 0;
-}
-
-.ish-item-score {
-  font-size: 12px;
-  font-weight: 600;
-  color: #0f172a;
-  margin: 4px 0 0 0;
-}
-
-.ish-score-badge {
-  color: #047857;
-  font-weight: 700;
-}
-
-.ish-desc-bullets {
-  margin: 8px 0 0 0;
-  padding-left: 18px;
-  font-size: 12px;
-  color: #475569;
-  line-height: 1.6;
-}
-
-/* Skills Grid */
-.ish-skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 12px;
-}
-
-.ish-skill-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  padding: 8px 12px;
-  border-radius: 6px;
-}
-
-.ish-skill-name {
-  font-size: 12px;
-  font-weight: 700;
-  color: #0f172a;
-  margin: 0;
-}
-
-.ish-skill-level {
-  font-size: 11px;
-  color: #64748b;
-  margin: 0;
-}
-
-/* Portfolio Links */
-.ish-portfolio-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 6px 0;
-  font-size: 12px;
-}
-
-.ish-portfolio-link {
-  color: #1da1f2;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.ish-portfolio-link:hover {
-  text-decoration: underline;
-}
-
-/* My Applications Table */
-.ish-table-card {
+.ish-apps-table-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
 
-.ish-table {
+.ish-apps-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
   font-size: 12px;
 }
 
-.ish-table th {
+.ish-apps-table th {
   background: #f8fafc;
   color: #475569;
   font-weight: 700;
   padding: 12px 16px;
   text-transform: uppercase;
   font-size: 11px;
-  letter-spacing: 0.04em;
   border-bottom: 1px solid #e2e8f0;
 }
 
-.ish-table td {
+.ish-apps-table td {
   padding: 14px 16px;
   border-bottom: 1px solid #f1f5f9;
   color: #334155;
 }
 
-.ish-table tr:hover td {
+.ish-apps-table tr:hover td {
   background: #f8fafc;
 }
 
-.ish-status-pill {
-  display: inline-block;
-  padding: 3px 8px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.ish-status-shortlisted {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.ish-status-intouch {
-  background: #dbeafe;
-  color: #1e40af;
-}
-
-.ish-status-applied {
-  background: #f1f5f9;
-  color: #475569;
-}
-
-/* Bookmarks Card */
-.ish-bookmark-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.ish-primary-btn {
-  background: #1da1f2;
-  color: #ffffff;
-  border: none;
-  padding: 8px 16px;
-  font-size: 12px;
-  font-weight: 700;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.ish-primary-btn:hover {
-  background: #0c85d0;
-}
-
 /* Modals */
-.ish-modal-backdrop {
+.ish-modal-overlay {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: 120;
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(2px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
 }
 
-.ish-modal {
+.ish-modal-box {
   background: #ffffff;
   border-radius: 8px;
   width: 100%;
   max-width: 480px;
   padding: 24px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
 }
 
-.ish-form-group {
-  margin-bottom: 14px;
-}
-
-.ish-form-label {
-  display: block;
-  font-size: 12px;
-  font-weight: 700;
-  color: #334155;
-  margin-bottom: 6px;
-}
-
-.ish-form-input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 8px 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  font-size: 12px;
-  outline: none;
-}
-
-.ish-form-input:focus {
-  border-color: #1da1f2;
-}
-
-@media print {
-  .ish-header,
-  .ish-subnav,
-  .ish-switch-btn,
-  .ish-add-btn,
-  .ish-icon-btn {
-    display: none !important;
-  }
-
-  .ish-wrapper {
-    background: #ffffff;
-    padding: 0;
-  }
-
-  .ish-resume-sheet {
-    box-shadow: none;
-    border: none;
-    padding: 0;
+@media (max-width: 768px) {
+  .ish-section-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
 }
