@@ -412,7 +412,7 @@ export default function StudentProfile({ onNavigateToEvents }) {
                         />
                       </div>
                       <p style={{ margin: 0, fontSize: '13px', lineHeight: 1.6, color: '#334155' }}>
-                        {profile.careerObjective}
+                        {profile.careerObjective || initialProfileData.careerObjective}
                       </p>
                     </div>
                   </div>
