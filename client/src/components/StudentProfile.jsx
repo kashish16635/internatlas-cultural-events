@@ -1,863 +1,691 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './StudentProfile.css';
+import React, { useState, useEffect } from "react";
+import "./StudentProfile.css";
 import {
-  Edit2,
-  Trash2,
-  Plus,
-  Download,
+  User,
+  GraduationCap,
+  Briefcase,
+  Award,
+  FileText,
+  CheckCircle2,
+  MapPin,
+  Mail,
+  Phone,
   ExternalLink,
-  ChevronDown,
-  ChevronLeft,
+  Edit3,
+  Download,
+  Sparkles,
+  Share2,
+  ShieldCheck,
+  ChevronRight,
   X,
-  Lightbulb,
-  Star,
-  Check
-} from 'lucide-react';
+  Building,
+} from "lucide-react";
 
 const initialProfileData = {
   fullName: "Kashish Khichi",
-  location: "Ujjain",
+  headline: "B.Tech CSE Student @ DTU '27 | Full-Stack & GenAI Engineer | Ex-Frontend Intern",
+  college: "Delhi Technological University (DTU)",
+  degree: "B.Tech, Computer Science and Engineering",
+  batch: "Class of 2027",
+  location: "New Delhi / Ujjain",
   email: "thakur.kashish353@gmail.com",
   phone: "+91 9713424201",
-  careerObjective: "B.Tech CSE student skilled in React.js, Python scripting, and GenAI. Experienced in building responsive dashboards, Gemini API integrations, and location-based telemetry systems. Seeking an engineering role to contribute full-stack development skills to scalable real-world projects.",
+  completeness: 94,
+  about: `Computer Science undergraduate with demonstrable expertise in scalable React / Next.js web applications, responsive user interfaces, and AI engineering workflows.
+
+Proven track record of designing production-grade portals, including discovery dashboards, responsive candidate profile suites, and real-time application pipelines. Passionate about performant design systems, clean code architectures, and developer tooling.`,
   github: "https://github.com/kashish16635",
-  linkedin: "https://linkedin.com/in/kashia-khichi",
+  linkedin: "https://linkedin.com/in/kashish-khichi",
   portfolio: "https://kashishkhichi.dev",
+  stats: {
+    applications: 14,
+    interviews: 3,
+    skillsVerified: 12,
+  },
   education: [
     {
       id: "edu-1",
       degree: "B.Tech, Computer Science and Engineering",
       institution: "Delhi Technological University (DTU, formerly DCE)",
+      location: "New Delhi",
       duration: "2023 - 2027",
-      grade: "8.84 / 10",
-      scoreLabel: "Current CGPA"
+      grade: "8.84 / 10 CGPA",
+      scoreLabel: "Current CGPA",
+      status: "Pursuing",
+      description: "Data Structures, Algorithms, DBMS, Operating Systems, Computer Networks.",
     },
     {
       id: "edu-2",
-      degree: "Senior Secondary (XII), Science (CBSE)",
-      institution: "Delhi Public School, R.K. Puram",
+      degree: "Senior Secondary (Class XII), Science CBSE",
+      institution: "Delhi Public School (DPS), R.K. Puram",
+      location: "New Delhi",
       duration: "2021 - 2023",
       grade: "96.40%",
-      scoreLabel: "Board Performance"
+      scoreLabel: "Board Performance",
+      status: "Completed",
+      description: "Physics, Chemistry, Mathematics, Computer Science, English.",
     },
     {
       id: "edu-3",
-      degree: "Secondary (X), CBSE",
-      institution: "Delhi Public School, R.K. Puram",
+      degree: "Secondary Education (Class X), CBSE",
+      institution: "Delhi Public School (DPS), R.K. Puram",
+      location: "New Delhi",
       duration: "2019 - 2021",
       grade: "97.20%",
-      scoreLabel: "Board Performance"
-    }
-  ],
-  internships: [
-    {
-      id: "int-1",
-      title: "Frontend Engineering Intern",
-      company: "InternAtlas Labs",
-      location: "Work from Home / Bengaluru",
-      duration: "Sep 2026 - Present",
-      bullets: [
-        "Engineered the responsive Student Profile & Opportunity Modules using Next.js 16, TypeScript, and Tailwind CSS.",
-        "Implemented continuous paper resume generator and real-time application tracking dashboard."
-      ]
-    }
-  ],
-  responsibilities: [
-    {
-      id: "por-1",
-      title: "Core Technical Council Member — DTU Student Developer Club",
-      duration: "Aug 2024 - Present",
-      description: "Organized annual technical hackathons, conducted developer orientation sessions for 300+ students, and contributed to departmental web portals."
-    }
-  ],
-  trainings: [
-    {
-      id: "trn-1",
-      title: "Full Stack Web Development Specialization",
-      institution: "Meta & Coursera",
-      duration: "Jun 2024 - Aug 2024",
-      description: "Comprehensive training covering React, modern asynchronous JavaScript, REST APIs, and database fundamentals."
-    }
+      scoreLabel: "Board Performance",
+      status: "Completed",
+      description: "All subjects distinction with Certificate of Merit.",
+    },
   ],
   projects: [
     {
       id: "proj-1",
-      title: "Cultural Events & Fest Finder for Campus Communities",
-      duration: "Aug 2026 - Sep 2026",
-      liveUrl: "https://internatlas-cultural-events.vercel.app",
-      description: "Engineered campus discovery dashboard with event schedules, category filters, live booking passes and QR ticketing using React and Node.js."
+      title: "InternAtlas Platform — Student Profile & Opportunity Portal",
+      role: "Frontend Engineer Intern",
+      duration: "Sept 2026 - Present",
+      description: "Engineered responsive Student Profile, verified skills suite, and real-time applications pipeline using modern component architecture.",
+      tags: ["React 19", "Next.js", "TypeScript", "Tailwind CSS"],
+      liveUrl: "https://internatlas.in",
     },
     {
       id: "proj-2",
-      title: "TechSprint - Peer-to-Peer Mock Interview Matcher",
-      duration: "May 2026 - Jul 2026",
-      liveUrl: "https://techsprint.dev",
-      description: "WebRTC powered collaborative code editor and peer interview room pairing college engineering students for peer code reviews."
-    }
+      title: "Cultural Events & Fest Finder for Campus Communities",
+      role: "Lead Developer",
+      duration: "Aug 2026 - Sept 2026",
+      description: "Engineered interactive fest exploration engine featuring schedule boards, digital passes with QR codes, and multi-filter discovery.",
+      tags: ["React", "Vite", "Node.js", "Express"],
+      liveUrl: "https://internatlas-cultural-events.vercel.app",
+    },
+    {
+      id: "proj-3",
+      title: "TechSprint: Peer-to-Peer Mock Interview Matcher",
+      role: "Full Stack Developer",
+      duration: "May 2026 - July 2026",
+      description: "WebRTC peer matching system pairing engineering students for DSA mock interviews and collaborative real-time code execution.",
+      tags: ["React", "WebRTC", "Socket.io", "PostgreSQL"],
+      liveUrl: "https://github.com/kashish16635",
+    },
   ],
   skills: [
-    { name: "React.js", level: "Advanced" },
-    { name: "Next.js", level: "Advanced" },
-    { name: "TypeScript", level: "Advanced" },
-    { name: "JavaScript", level: "Advanced" },
-    { name: "Tailwind CSS", level: "Advanced" },
-    { name: "Python", level: "Intermediate" },
-    { name: "Node.js", level: "Intermediate" },
-    { name: "PostgreSQL", level: "Intermediate" },
-    { name: "Git & GitHub", level: "Advanced" }
+    { name: "React 19 & Next.js", category: "Frontend", level: "Advanced", endorsements: 28 },
+    { name: "TypeScript", category: "Frontend", level: "Advanced", endorsements: 24 },
+    { name: "JavaScript (ES6+)", category: "Frontend", level: "Advanced", endorsements: 32 },
+    { name: "Tailwind CSS & Modern CSS", category: "Frontend", level: "Advanced", endorsements: 29 },
+    { name: "Node.js & Express", category: "Backend", level: "Intermediate", endorsements: 19 },
+    { name: "RESTful APIs & Microservices", category: "Backend", level: "Intermediate", endorsements: 17 },
+    { name: "PostgreSQL & Prisma", category: "Database", level: "Intermediate", endorsements: 15 },
+    { name: "MongoDB", category: "Database", level: "Proficient", endorsements: 12 },
+    { name: "Git & GitHub CI/CD", category: "Tools & Cloud", level: "Advanced", endorsements: 26 },
+    { name: "Data Structures & Algorithms", category: "Core", level: "Proficient", endorsements: 22 },
   ],
   applications: [
     {
       id: "app-1",
-      company: "InternAtlas Labs",
       role: "Frontend Engineering Intern",
-      appliedDate: "18 Sep 2026",
+      company: "InternAtlas Labs",
+      location: "Bengaluru (Hybrid)",
+      type: "Internship (6 Months)",
+      appliedDate: "18 Sept 2026",
       status: "Shortlisted",
-      applicants: 142
+      stipend: "₹25,000 / month",
+      timeline: "Final Technical Round on 30 Sept",
     },
     {
       id: "app-2",
-      company: "Razorpay",
       role: "Product Engineering Intern",
-      appliedDate: "12 Sep 2026",
-      status: "In-touch",
-      applicants: 320
+      company: "Razorpay",
+      location: "Bengaluru",
+      type: "Summer Internship",
+      appliedDate: "12 Sept 2026",
+      status: "In Review",
+      stipend: "₹45,000 / month",
+      timeline: "Resume Screen Passed",
     },
     {
       id: "app-3",
-      company: "Zepto Labs",
       role: "React / Next.js Developer",
-      appliedDate: "05 Sep 2026",
-      status: "Applied",
-      applicants: 215
+      company: "Zepto Labs",
+      location: "Mumbai / Remote",
+      type: "Winter Internship",
+      appliedDate: "05 Sept 2026",
+      status: "Interview Scheduled",
+      stipend: "₹35,000 / month",
+      timeline: "Coding Assignment Completed",
     },
     {
       id: "app-4",
-      company: "Cred",
       role: "Full Stack Engineering Fellow",
+      company: "Cred",
+      location: "Bengaluru",
+      type: "Fellowship",
       appliedDate: "28 Aug 2026",
       status: "Applied",
-      applicants: 450
-    }
-  ]
+      stipend: "₹50,000 / month",
+      timeline: "Under Initial Screening",
+    },
+  ],
+  resume: {
+    fileName: "Kashish_Khichi_Resume_DTU_2026.pdf",
+    uploadedAt: "Updated 2 days ago",
+    size: "184 KB",
+    atsScore: 94,
+  },
 };
 
 export default function StudentProfile({ onNavigateToEvents }) {
   const [profile, setProfile] = useState(initialProfileData);
-  const [activeView, setActiveView] = useState("resume"); // 'resume', 'applications', 'bookmarks', 'preferences'
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [editModal, setEditModal] = useState(null); // 'personal', 'objective'
-
-  const dropdownRef = useRef(null);
-
-  const [personalForm, setPersonalForm] = useState({
+  const [activeTab, setActiveTab] = useState("overview");
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editFormData, setEditFormData] = useState({
     fullName: profile.fullName,
+    headline: profile.headline,
+    college: profile.college,
+    location: profile.location,
     email: profile.email,
     phone: profile.phone,
-    location: profile.location
+    about: profile.about,
   });
-
-  const [objectiveText, setObjectiveText] = useState(profile.careerObjective);
-
-  // Close dropdown on outside click
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   useEffect(() => {
     try {
       const saved = localStorage.getItem("internatlas_student_profile");
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (parsed && Array.isArray(parsed.education) && Array.isArray(parsed.applications)) {
-          const merged = {
-            ...parsed,
-            phone: "+91 9713424201",
-            location: "Ujjain",
-            careerObjective: parsed.careerObjective || initialProfileData.careerObjective
-          };
-          setProfile(merged);
-          setPersonalForm({
-            fullName: merged.fullName,
-            email: merged.email,
-            phone: merged.phone,
-            location: merged.location
+        if (parsed && Array.isArray(parsed.education)) {
+          setProfile((prev) => ({ ...prev, ...parsed }));
+          setEditFormData({
+            fullName: parsed.fullName || profile.fullName,
+            headline: parsed.headline || profile.headline,
+            college: parsed.college || profile.college,
+            location: parsed.location || profile.location,
+            email: parsed.email || profile.email,
+            phone: parsed.phone || profile.phone,
+            about: parsed.about || profile.about,
           });
-          setObjectiveText(merged.careerObjective);
-          localStorage.setItem("internatlas_student_profile", JSON.stringify(merged));
-        } else {
-          setProfile(initialProfileData);
-          localStorage.setItem("internatlas_student_profile", JSON.stringify(initialProfileData));
         }
-      } else {
-        localStorage.setItem("internatlas_student_profile", JSON.stringify(initialProfileData));
       }
-    } catch (e) {}
+    } catch {}
   }, []);
 
-  const handlePersonalSave = (e) => {
+  const handleEditSubmit = (e) => {
     e.preventDefault();
-    const updated = { ...profile, ...personalForm };
+    const updated = { ...profile, ...editFormData };
     setProfile(updated);
     try {
       localStorage.setItem("internatlas_student_profile", JSON.stringify(updated));
-    } catch (err) {}
-    setEditModal(null);
+    } catch {}
+    setIsEditModalOpen(false);
   };
 
-  const handleObjectiveSave = (e) => {
-    e.preventDefault();
-    const updated = { ...profile, careerObjective: objectiveText };
-    setProfile(updated);
-    try {
-      localStorage.setItem("internatlas_student_profile", JSON.stringify(updated));
-    } catch (err) {}
-    setEditModal(null);
-  };
-
-  const handlePrintResume = () => {
-    window.print();
-  };
+  const tabs = [
+    { id: "overview", label: "Overview & Bio", icon: User, count: null },
+    { id: "academics", label: "Academics", icon: GraduationCap, count: profile.education.length },
+    { id: "projects", label: "Projects & Internships", icon: Briefcase, count: profile.projects.length },
+    { id: "skills", label: "Verified Skills", icon: Award, count: profile.skills.length },
+    { id: "applications", label: "Application Tracker", icon: CheckCircle2, count: profile.applications.length },
+    { id: "resume", label: "Resume Vault", icon: FileText, count: null },
+  ];
 
   return (
-    <div className="ia-wrapper">
-      {/* Top Navbar */}
-      <header className="ia-header">
-        <div className="ia-header-container">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
-            <span className="ia-logo">
-              <span className="ia-logo-main">InternAtlas</span>
-            </span>
+    <div className="iap-wrapper">
+      {/* Header */}
+      <header className="iap-header">
+        <div className="iap-header-container">
+          <div className="iap-logo" onClick={onNavigateToEvents}>
+            Intern<span>Atlas.</span>
           </div>
 
-          <div className="ia-header-right">
-            <span className="ia-nav-link" onClick={() => setActiveView("resume")}>
-              Internships
+          <div className="iap-header-nav">
+            <span className="iap-nav-link" onClick={onNavigateToEvents}>
+              Cultural Events
             </span>
-            <span className="ia-nav-link">
-              Courses <span className="ia-offer-pill">OFFER</span>
-            </span>
-            <span className="ia-nav-link" onClick={() => setActiveView("resume")}>
-              Jobs
-            </span>
+            <span className="iap-nav-link active">Student Profile</span>
+          </div>
 
-            {/* Avatar Pill Button with HOVER */}
-            <div
-              className="ia-avatar-wrapper"
-              ref={dropdownRef}
-              onMouseEnter={() => setIsDropdownOpen(true)}
-              onMouseLeave={() => setIsDropdownOpen(false)}
-            >
-              <div
-                className="ia-avatar-btn"
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                title="Hover or click to view profile menu"
-              >
-                <span>K</span>
-                <ChevronDown size={12} style={{ marginLeft: '2px' }} />
-              </div>
-
-              {/* USER POPUP DROPDOWN (Exact internatlas Layout) */}
-              {isDropdownOpen && (
-                <div className="ia-dropdown-menu">
-                <div className="ia-dropdown-header">
-                  <p className="ia-dropdown-name">{profile.fullName}</p>
-                  <p className="ia-dropdown-email">{profile.email}</p>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <div className="ia-rating-badge">
-                      <Star size={13} className="ia-rating-star" fill="#eab308" />
-                      <span>4.5</span>
-                    </div>
-                    <span className="ia-rating-link">Know More &gt;</span>
-                  </div>
-                </div>
-
-                <ul className="ia-dropdown-list">
-                  <li>
-                    <span
-                      className="ia-dropdown-item"
-                      onClick={() => {
-                        setActiveView("resume");
-                        setIsDropdownOpen(false);
-                      }}
-                    >
-                      Home
-                    </span>
-                  </li>
-                  <li>
-                    <span
-                      className="ia-dropdown-item"
-                      onClick={() => {
-                        setActiveView("applications");
-                        setIsDropdownOpen(false);
-                      }}
-                    >
-                      My Applications
-                    </span>
-                  </li>
-                  <li>
-                    <span
-                      className="ia-dropdown-item"
-                      onClick={() => {
-                        setActiveView("bookmarks");
-                        setIsDropdownOpen(false);
-                      }}
-                    >
-                      My Bookmarks
-                    </span>
-                  </li>
-                  <li>
-                    <span
-                      className="ia-dropdown-item"
-                      style={{ fontWeight: 700, color: '#2563EB' }}
-                      onClick={() => {
-                        setActiveView("resume");
-                        setIsDropdownOpen(false);
-                      }}
-                    >
-                      Edit Resume
-                    </span>
-                  </li>
-                  <li>
-                    <span
-                      className="ia-dropdown-item"
-                      onClick={() => {
-                        setActiveView("preferences");
-                        setIsDropdownOpen(false);
-                      }}
-                    >
-                      Edit Preferences
-                    </span>
-                  </li>
-                  <li>
-                    <span className="ia-dropdown-item">Safety Tips</span>
-                  </li>
-                  <li>
-                    <span className="ia-dropdown-item">Help Center</span>
-                  </li>
-                  <li>
-                    <span className="ia-dropdown-item" onClick={onNavigateToEvents} style={{ color: '#2563EB' }}>
-                      Switch to Cultural Events
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            )}
+          <div className="iap-header-actions">
+            <div className="iap-profile-badge" onClick={() => setIsEditModalOpen(true)}>
+              <div className="iap-avatar-mini">{profile.fullName.charAt(0)}</div>
+              <span className="iap-profile-name">Profile</span>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Main Content Area */}
-      <div className="ia-main-container">
-        {/* ======================================================== */}
-        {/* VIEW 1: RESUME BUILDER (Exact internatlas 2-Column Sheet) */}
-        {/* ======================================================== */}
-        {activeView === "resume" && (
-          <div>
-            <div className="ia-back-link" onClick={onNavigateToEvents}>
-              <ChevronLeft size={16} />
-              <span>Back</span>
-            </div>
+      {/* Top Banner */}
+      <div className="iap-banner">
+        <div className="iap-banner-grid" />
+        <div className="iap-banner-container">
+          <div className="iap-verified-pill">
+            <span className="iap-pulse-dot" />
+            <span>InternAtlas Verified Candidate</span>
+          </div>
 
-            <h1 className="ia-page-title-center">InternAtlas Resume</h1>
+          <div className="iap-banner-buttons">
+            <button
+              className="iap-banner-btn-secondary"
+              onClick={() => {
+                navigator.clipboard?.writeText(window.location.href);
+                alert("Profile URL copied to clipboard!");
+              }}
+            >
+              <Share2 size={13} />
+              <span>Share</span>
+            </button>
+            <button className="iap-banner-btn-primary" onClick={() => setIsEditModalOpen(true)}>
+              <Edit3 size={13} style={{ color: "#2563eb" }} />
+              <span>Edit Profile</span>
+            </button>
+          </div>
+        </div>
+      </div>
 
-            {/* 4 Sections Need Attention Banner */}
-            <div className="ia-attention-banner">
-              <div className="ia-banner-left">
-                <Lightbulb size={18} color="#0284c7" />
-                <span>4 sections in your InternAtlas resume need attention</span>
-              </div>
-              <button
-                className="ia-review-btn"
-                onClick={() => alert("Profile Review: Add 1 more verified internship and project link to achieve 100% profile score!")}
-              >
-                Review Now
-              </button>
-            </div>
+      {/* Main Content */}
+      <main className="iap-main">
+        {/* Profile Card */}
+        <div className="iap-profile-card">
+          <div className="iap-profile-top">
+            <div className="iap-profile-identity">
+              <div className="iap-avatar-large">{profile.fullName.charAt(0)}</div>
 
-            {/* Resume Sheet */}
-            <div className="ia-paper-sheet">
-              <div className="ia-sheet-top-caption">
-                This is the resume companies will see when you apply
-              </div>
-
-              <div className="ia-sheet-body">
-                {/* Personal Info Header */}
-                <div className="ia-sheet-header">
-                  <div>
-                    <h2 className="ia-person-name">
-                      {profile.fullName}
-                      <Edit2
-                        size={16}
-                        className="ia-edit-icon"
-                        onClick={() => {
-                          setPersonalForm({
-                            fullName: profile.fullName,
-                            email: profile.email,
-                            phone: profile.phone,
-                            location: profile.location
-                          });
-                          setEditModal("personal");
-                        }}
-                      />
-                    </h2>
-                    <div className="ia-person-info">
-                      <div>{profile.email}</div>
-                      <div>{profile.phone}</div>
-                      <div>{profile.location}</div>
-                    </div>
-                  </div>
-
-                  <span className="ia-download-link" onClick={handlePrintResume}>
-                    <Download size={14} />
-                    <span>Download Resume</span>
+              <div className="iap-identity-info">
+                <div className="iap-name-row">
+                  <h1 className="iap-fullname">{profile.fullName}</h1>
+                  <span className="iap-candidate-pill">
+                    <ShieldCheck size={13} /> Verified
                   </span>
                 </div>
 
-                {/* 1. CAREER OBJECTIVE */}
-                <div className="ia-section-row">
-                  <div className="ia-col-left">Career Objective</div>
-                  <div className="ia-col-right">
-                    <div className="ia-content-card">
-                      <div className="ia-card-actions">
-                        <Edit2
-                          size={14}
-                          className="ia-action-icon"
-                          onClick={() => setEditModal("objective")}
-                        />
-                      </div>
-                      <p style={{ margin: 0, fontSize: '13px', lineHeight: 1.6, color: '#334155' }}>
-                        {profile.careerObjective || initialProfileData.careerObjective}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <p className="iap-headline">{profile.headline}</p>
 
-                {/* 2. EDUCATION */}
-                <div className="ia-section-row">
-                  <div className="ia-col-left">Education</div>
-                  <div className="ia-col-right">
-                    {(profile?.education || []).map((edu) => (
-                      <div key={edu.id} className="ia-content-card">
-                        <div className="ia-card-actions">
-                          <Edit2 size={14} className="ia-action-icon" onClick={() => alert("Edit Education")} />
-                        </div>
-                        <h4 style={{ margin: '0 0 2px 0', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>
-                          {edu.degree}
-                        </h4>
-                        <p style={{ margin: '0 0 2px 0', fontSize: '13px', color: '#475569' }}>
-                          {edu.institution}
-                        </p>
-                        <p style={{ margin: '0 0 4px 0', fontSize: '12px', color: '#64748b' }}>
-                          {edu.duration}
-                        </p>
-                        <p style={{ margin: 0, fontSize: '12px', fontWeight: 600, color: '#0f172a' }}>
-                          {edu.scoreLabel}: <strong style={{ color: '#047857' }}>{edu.grade}</strong>
-                        </p>
-                      </div>
-                    ))}
-                    <span className="ia-add-section-link" onClick={() => alert("Add education form")}>
-                      <Plus size={12} /> Add education
-                    </span>
-                  </div>
-                </div>
-
-                {/* 3. JOBS */}
-                <div className="ia-section-row">
-                  <div className="ia-col-left">Jobs</div>
-                  <div className="ia-col-right">
-                    <p style={{ margin: 0, fontSize: '12px', color: '#94a3b8', fontStyle: 'italic' }}>
-                      No full-time jobs added yet.
-                    </p>
-                    <span className="ia-add-section-link" onClick={() => alert("Add job form")}>
-                      <Plus size={12} /> Add job
-                    </span>
-                  </div>
-                </div>
-
-                {/* 4. INTERNSHIPS */}
-                <div className="ia-section-row">
-                  <div className="ia-col-left">Internships</div>
-                  <div className="ia-col-right">
-                    {(profile?.internships || []).map((int) => (
-                      <div key={int.id} className="ia-content-card">
-                        <div className="ia-card-actions">
-                          <Edit2 size={14} className="ia-action-icon" onClick={() => alert("Edit Internship")} />
-                        </div>
-                        <h4 style={{ margin: '0 0 2px 0', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>
-                          {int.title}
-                        </h4>
-                        <p style={{ margin: '0 0 2px 0', fontSize: '13px', color: '#475569' }}>
-                          {int.company}
-                        </p>
-                        <p style={{ margin: '0 0 6px 0', fontSize: '12px', color: '#64748b' }}>
-                          {int.location} • {int.duration}
-                        </p>
-                        <ul style={{ margin: 0, paddingLeft: '18px', fontSize: '12px', color: '#475569', lineHeight: 1.6 }}>
-                          {int.bullets.map((b, i) => (
-                            <li key={i}>{b}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                    <span className="ia-add-section-link" onClick={() => alert("Add internship form")}>
-                      <Plus size={12} /> Add internship
-                    </span>
-                  </div>
-                </div>
-
-                {/* 5. POSITIONS OF RESPONSIBILITY */}
-                <div className="ia-section-row">
-                  <div className="ia-col-left">Positions of Responsibility</div>
-                  <div className="ia-col-right">
-                    {(profile?.responsibilities || []).map((por) => (
-                      <div key={por.id} className="ia-content-card">
-                        <div className="ia-card-actions">
-                          <Edit2 size={14} className="ia-action-icon" onClick={() => alert("Edit POR")} />
-                        </div>
-                        <h4 style={{ margin: '0 0 2px 0', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>
-                          {por.title}
-                        </h4>
-                        <p style={{ margin: '0 0 4px 0', fontSize: '12px', color: '#64748b' }}>
-                          {por.duration}
-                        </p>
-                        <p style={{ margin: 0, fontSize: '12px', color: '#475569', lineHeight: 1.6 }}>
-                          {por.description}
-                        </p>
-                      </div>
-                    ))}
-                    <span className="ia-add-section-link" onClick={() => alert("Add position form")}>
-                      <Plus size={12} /> Add position of responsibility
-                    </span>
-                  </div>
-                </div>
-
-                {/* 6. TRAININGS / COURSES */}
-                <div className="ia-section-row">
-                  <div className="ia-col-left">Trainings / Courses</div>
-                  <div className="ia-col-right">
-                    {(profile?.trainings || []).map((trn) => (
-                      <div key={trn.id} className="ia-content-card">
-                        <div className="ia-card-actions">
-                          <Edit2 size={14} className="ia-action-icon" onClick={() => alert("Edit training")} />
-                        </div>
-                        <h4 style={{ margin: '0 0 2px 0', fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>
-                          {trn.title}
-                        </h4>
-                        <p style={{ margin: '0 0 4px 0', fontSize: '12px', color: '#64748b' }}>
-                          {trn.institution} • {trn.duration}
-                        </p>
-                        <p style={{ margin: 0, fontSize: '12px', color: '#475569', lineHeight: 1.6 }}>
-                          {trn.description}
-                        </p>
-                      </div>
-                    ))}
-                    <span className="ia-add-section-link" onClick={() => alert("Add training form")}>
-                      <Plus size={12} /> Add training/ course
-                    </span>
-                  </div>
-                </div>
-
-                {/* 7. ACADEMICS / PERSONAL PROJECTS */}
-                <div className="ia-section-row">
-                  <div className="ia-col-left">Academics / Personal Projects</div>
-                  <div className="ia-col-right">
-                    {(profile?.projects || []).map((proj) => (
-                      <div key={proj.id} className="ia-content-card">
-                        <div className="ia-card-actions">
-                          <Edit2 size={14} className="ia-action-icon" onClick={() => alert("Edit project")} />
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <h4 style={{ margin: 0, fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>
-                            {proj.title}
-                          </h4>
-                          {proj.liveUrl && (
-                            <a
-                              href={proj.liveUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              style={{ display: 'inline-flex', alignItems: 'center', gap: '2px', color: '#2563EB', fontSize: '12px', textDecoration: 'none', fontWeight: 600 }}
-                            >
-                              <span>Project link</span>
-                              <ExternalLink size={11} />
-                            </a>
-                          )}
-                        </div>
-                        <p style={{ margin: '2px 0 6px 0', fontSize: '12px', color: '#64748b' }}>
-                          {proj.duration}
-                        </p>
-                        <p style={{ margin: 0, fontSize: '12px', color: '#475569', lineHeight: 1.6 }}>
-                          {proj.description}
-                        </p>
-                      </div>
-                    ))}
-                    <span className="ia-add-section-link" onClick={() => alert("Add project form")}>
-                      <Plus size={12} /> Add academic/ personal project
-                    </span>
-                  </div>
-                </div>
-
-                {/* 8. SKILLS */}
-                <div className="ia-section-row">
-                  <div className="ia-col-left">Skills</div>
-                  <div className="ia-col-right">
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '8px' }}>
-                      {(profile?.skills || []).map((skill) => (
-                        <div
-                          key={skill.name}
-                          style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '6px',
-                            background: '#f1f5f9',
-                            padding: '4px 10px',
-                            borderRadius: '4px',
-                            fontSize: '12px',
-                            fontWeight: 600,
-                            color: '#334155'
-                          }}
-                        >
-                          <span>{skill.name}</span>
-                          <span style={{ fontSize: '10px', color: '#64748b' }}>({skill.level})</span>
-                        </div>
-                      ))}
-                    </div>
-                    <span className="ia-add-section-link" onClick={() => alert("Add skill form")}>
-                      <Plus size={12} /> Add skill
-                    </span>
-                  </div>
-                </div>
-
-                {/* 9. PORTFOLIO / WORK SAMPLES */}
-                <div className="ia-section-row">
-                  <div className="ia-col-left">Portfolio / Work Samples</div>
-                  <div className="ia-col-right">
-                    <div style={{ fontSize: '13px', lineHeight: 2 }}>
-                      <div>
-                        <strong>GitHub profile: </strong>
-                        <a href={profile.github} target="_blank" rel="noreferrer" style={{ color: '#2563EB' }}>
-                          {profile.github}
-                        </a>
-                      </div>
-                      <div>
-                        <strong>Developer portfolio: </strong>
-                        <a href={profile.portfolio} target="_blank" rel="noreferrer" style={{ color: '#2563EB' }}>
-                          {profile.portfolio}
-                        </a>
-                      </div>
-                      <div>
-                        <strong>LinkedIn profile: </strong>
-                        <a href={profile.linkedin} target="_blank" rel="noreferrer" style={{ color: '#2563EB' }}>
-                          {profile.linkedin}
-                        </a>
-                      </div>
-                    </div>
-                    <span className="ia-add-section-link" onClick={() => alert("Add portfolio sample")}>
-                      <Plus size={12} /> Add portfolio/ work sample
-                    </span>
-                  </div>
-                </div>
-
-                {/* 10. ACCOMPLISHMENTS */}
-                <div className="ia-section-row">
-                  <div className="ia-col-left">Accomplishments</div>
-                  <div className="ia-col-right">
-                    <ul style={{ margin: 0, paddingLeft: '18px', fontSize: '12px', color: '#475569', lineHeight: 1.8 }}>
-                      <li>School Scholar Badge recipient for consecutive academic distinction at DPS R.K. Puram.</li>
-                      <li>State-level Junior Science Olympiad Qualifier with Merit Distinction in Mathematics.</li>
-                      <li>Ranked top 10% in DTU departmental algorithmic coding and data structures assessments.</li>
-                    </ul>
-                    <span className="ia-add-section-link" onClick={() => alert("Add accomplishment form")}>
-                      <Plus size={12} /> Add accomplishment/ additional detail
-                    </span>
-                  </div>
+                <div className="iap-meta-row">
+                  <span className="iap-meta-item">
+                    <Building size={14} /> {profile.college}
+                  </span>
+                  <span className="iap-meta-item">
+                    <MapPin size={14} /> {profile.location}
+                  </span>
+                  <span className="iap-meta-item">
+                    <Mail size={14} /> {profile.email}
+                  </span>
+                  <span className="iap-meta-item">
+                    <Phone size={14} /> {profile.phone}
+                  </span>
                 </div>
               </div>
+            </div>
+
+            {/* Profile Score Widget */}
+            <div className="iap-completeness-box">
+              <div className="iap-comp-header">
+                <span className="iap-comp-title">
+                  <Sparkles size={14} style={{ color: "#f59e0b" }} /> Profile Strength
+                </span>
+                <span className="iap-comp-percent">{profile.completeness}%</span>
+              </div>
+              <div className="iap-progress-track">
+                <div className="iap-progress-fill" style={{ width: `${profile.completeness}%` }} />
+              </div>
+              <p className="iap-comp-desc">All essential milestones verified. Recruiter-ready profile.</p>
             </div>
           </div>
-        )}
 
-        {/* ======================================================== */}
-        {/* VIEW 2: MY APPLICATIONS TABLE */}
-        {/* ======================================================== */}
-        {activeView === "applications" && (
-          <div className="ia-apps-container">
-            <div className="ia-back-link" onClick={() => setActiveView("resume")}>
-              <ChevronLeft size={16} />
-              <span>Back to Resume</span>
+          {/* Social Row */}
+          <div className="iap-profile-bottom">
+            <div className="iap-social-links">
+              <a href={profile.github} target="_blank" rel="noreferrer" className="iap-social-btn">
+                <span>GitHub</span>
+                <ExternalLink size={11} />
+              </a>
+              <a href={profile.linkedin} target="_blank" rel="noreferrer" className="iap-social-btn">
+                <span>LinkedIn</span>
+                <ExternalLink size={11} />
+              </a>
+              <a href={profile.portfolio} target="_blank" rel="noreferrer" className="iap-social-btn">
+                <span>Portfolio</span>
+                <ExternalLink size={11} />
+              </a>
             </div>
 
-            <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#0f172a', margin: '0 0 16px 0' }}>
-              My Applications
-            </h1>
-
-            <div className="ia-apps-table-card">
-              <table className="ia-apps-table">
-                <thead>
-                  <tr>
-                    <th>Company</th>
-                    <th>Profile</th>
-                    <th>Applied On</th>
-                    <th>Number of Applicants</th>
-                    <th>Application Status</th>
-                    <th style={{ textAlign: 'center' }}>Review Application</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(profile?.applications || []).map((app) => (
-                    <tr key={app.id}>
-                      <td style={{ fontWeight: 700, color: '#0f172a' }}>{app.company}</td>
-                      <td style={{ fontWeight: 600 }}>{app.role}</td>
-                      <td style={{ color: '#64748b' }}>{app.appliedDate}</td>
-                      <td style={{ color: '#64748b' }}>{app.applicants}</td>
-                      <td>
-                        <span
-                          style={{
-                            display: 'inline-block',
-                            padding: '2px 8px',
-                            borderRadius: '999px',
-                            fontSize: '11px',
-                            fontWeight: 700,
-                            background: app.status === 'Shortlisted' ? '#dcfce7' : app.status === 'In-touch' ? '#dbeafe' : '#f1f5f9',
-                            color: app.status === 'Shortlisted' ? '#166534' : app.status === 'In-touch' ? '#1e40af' : '#475569'
-                          }}
-                        >
-                          {app.status}
-                        </span>
-                      </td>
-                      <td style={{ textAlign: 'center' }}>
-                        <span
-                          style={{ color: '#2563EB', fontWeight: 600, cursor: 'pointer' }}
-                          onClick={() => alert(`Review application for ${app.role} at ${app.company}`)}
-                        >
-                          View
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div className="iap-stats-strip">
+              <span>
+                <strong>{profile.stats.applications}</strong> Applications
+              </span>
+              <span>
+                <strong>{profile.stats.interviews}</strong> Interviews
+              </span>
+              <span>
+                <strong>{profile.stats.skillsVerified}</strong> Skills Verified
+              </span>
             </div>
-          </div>
-        )}
-      </div>
-
-      {/* EDIT MODAL: PERSONAL DETAILS */}
-      {editModal === "personal" && (
-        <div className="ia-modal-overlay">
-          <div className="ia-modal-box">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e2e8f0', paddingBottom: '12px', marginBottom: '16px' }}>
-              <h3 style={{ margin: 0, fontSize: '15px', fontWeight: 800 }}>Personal Details</h3>
-              <X size={16} color="#94a3b8" style={{ cursor: 'pointer' }} onClick={() => setEditModal(null)} />
-            </div>
-
-            <form onSubmit={handlePersonalSave} style={{ fontSize: '12px' }}>
-              <div style={{ marginBottom: '12px' }}>
-                <label style={{ display: 'block', fontWeight: 700, marginBottom: '4px' }}>Full Name</label>
-                <input
-                  type="text"
-                  required
-                  value={personalForm.fullName}
-                  onChange={(e) => setPersonalForm({ ...personalForm, fullName: e.target.value })}
-                  style={{ width: '100%', boxSizing: 'border-box', padding: '8px 10px', border: '1px solid #cbd5e1', borderRadius: '4px', fontSize: '12px' }}
-                />
-              </div>
-
-              <div style={{ marginBottom: '12px' }}>
-                <label style={{ display: 'block', fontWeight: 700, marginBottom: '4px' }}>Email</label>
-                <input
-                  type="email"
-                  required
-                  value={personalForm.email}
-                  onChange={(e) => setPersonalForm({ ...personalForm, email: e.target.value })}
-                  style={{ width: '100%', boxSizing: 'border-box', padding: '8px 10px', border: '1px solid #cbd5e1', borderRadius: '4px', fontSize: '12px' }}
-                />
-              </div>
-
-              <div style={{ marginBottom: '12px' }}>
-                <label style={{ display: 'block', fontWeight: 700, marginBottom: '4px' }}>Mobile Number</label>
-                <input
-                  type="tel"
-                  required
-                  value={personalForm.phone}
-                  onChange={(e) => setPersonalForm({ ...personalForm, phone: e.target.value })}
-                  style={{ width: '100%', boxSizing: 'border-box', padding: '8px 10px', border: '1px solid #cbd5e1', borderRadius: '4px', fontSize: '12px' }}
-                />
-              </div>
-
-              <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', fontWeight: 700, marginBottom: '4px' }}>Current City</label>
-                <input
-                  type="text"
-                  required
-                  value={personalForm.location}
-                  onChange={(e) => setPersonalForm({ ...personalForm, location: e.target.value })}
-                  style={{ width: '100%', boxSizing: 'border-box', padding: '8px 10px', border: '1px solid #cbd5e1', borderRadius: '4px', fontSize: '12px' }}
-                />
-              </div>
-
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
-                <button
-                  type="button"
-                  onClick={() => setEditModal(null)}
-                  style={{ padding: '6px 14px', background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  style={{ padding: '6px 16px', background: '#2563EB', color: '#ffffff', border: 'none', borderRadius: '4px', fontWeight: 700, cursor: 'pointer', fontSize: '12px' }}
-                >
-                  Save
-                </button>
-              </div>
-            </form>
           </div>
         </div>
-      )}
 
-      {/* EDIT MODAL: CAREER OBJECTIVE */}
-      {editModal === "objective" && (
-        <div className="ia-modal-overlay">
-          <div className="ia-modal-box">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e2e8f0', paddingBottom: '12px', marginBottom: '16px' }}>
-              <h3 style={{ margin: 0, fontSize: '15px', fontWeight: 800 }}>Career Objective</h3>
-              <X size={16} color="#94a3b8" style={{ cursor: 'pointer' }} onClick={() => setEditModal(null)} />
+        {/* Tab Navigation */}
+        <div className="iap-tabs-bar">
+          {tabs.map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`iap-tab-btn ${isActive ? "active" : ""}`}
+              >
+                <Icon size={15} />
+                <span>{tab.label}</span>
+                {tab.count !== null && <span className="iap-tab-count">{tab.count}</span>}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Tab Panels */}
+        <div className="iap-tab-content">
+          {/* TAB: OVERVIEW */}
+          {activeTab === "overview" && (
+            <div>
+              <div className="iap-card">
+                <h2 className="iap-card-title">
+                  <User size={18} style={{ color: "#2563eb" }} /> Professional Summary
+                </h2>
+                <p style={{ fontSize: "13px", lineHeight: "1.6", color: "#475569", whiteSpace: "pre-line" }}>
+                  {profile.about}
+                </p>
+              </div>
+
+              <div className="iap-card">
+                <div className="iap-card-header">
+                  <h2 className="iap-card-title">
+                    <GraduationCap size={18} style={{ color: "#2563eb" }} /> Current Education
+                  </h2>
+                  <button
+                    onClick={() => setActiveTab("academics")}
+                    style={{ background: "none", border: "none", color: "#2563eb", fontSize: "12px", fontWeight: 700, cursor: "pointer" }}
+                  >
+                    View All &gt;
+                  </button>
+                </div>
+                <div className="iap-edu-item">
+                  <div className="iap-edu-top">
+                    <div>
+                      <div className="iap-edu-degree">{profile.education[0].degree}</div>
+                      <div className="iap-edu-inst">{profile.education[0].institution}</div>
+                    </div>
+                    <span className="iap-grade-badge">{profile.education[0].grade}</span>
+                  </div>
+                  <div className="iap-edu-meta">
+                    {profile.education[0].duration} • {profile.education[0].location}
+                  </div>
+                </div>
+              </div>
+
+              <div className="iap-card">
+                <div className="iap-card-header">
+                  <h2 className="iap-card-title">
+                    <Briefcase size={18} style={{ color: "#2563eb" }} /> Featured Project
+                  </h2>
+                  <button
+                    onClick={() => setActiveTab("projects")}
+                    style={{ background: "none", border: "none", color: "#2563eb", fontSize: "12px", fontWeight: 700, cursor: "pointer" }}
+                  >
+                    View All &gt;
+                  </button>
+                </div>
+                <div className="iap-proj-item">
+                  <div className="iap-proj-top">
+                    <div>
+                      <div className="iap-proj-title">{profile.projects[0].title}</div>
+                      <div className="iap-proj-role">{profile.projects[0].role} • {profile.projects[0].duration}</div>
+                    </div>
+                  </div>
+                  <p className="iap-proj-desc">{profile.projects[0].description}</p>
+                  <div>
+                    {profile.projects[0].tags.map((t) => (
+                      <span key={t} className="iap-tag-pill">{t}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB: ACADEMICS */}
+          {activeTab === "academics" && (
+            <div className="iap-card">
+              <h2 className="iap-card-title">
+                <GraduationCap size={18} style={{ color: "#2563eb" }} /> Academic Qualifications & Board Records
+              </h2>
+              <div style={{ marginTop: "16px" }}>
+                {profile.education.map((edu) => (
+                  <div key={edu.id} className="iap-edu-item">
+                    <div className="iap-edu-top">
+                      <div>
+                        <div className="iap-edu-degree">{edu.degree}</div>
+                        <div className="iap-edu-inst">{edu.institution} • {edu.location}</div>
+                      </div>
+                      <span className="iap-grade-badge">{edu.grade}</span>
+                    </div>
+                    <div className="iap-edu-meta">{edu.duration} • {edu.status}</div>
+                    <p style={{ fontSize: "12px", color: "#475569", marginTop: "8px" }}>{edu.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* TAB: PROJECTS */}
+          {activeTab === "projects" && (
+            <div className="iap-card">
+              <h2 className="iap-card-title">
+                <Briefcase size={18} style={{ color: "#2563eb" }} /> Projects & Engineering Experience
+              </h2>
+              <div style={{ marginTop: "16px" }}>
+                {profile.projects.map((proj) => (
+                  <div key={proj.id} className="iap-proj-item">
+                    <div className="iap-proj-top">
+                      <div>
+                        <div className="iap-proj-title">{proj.title}</div>
+                        <div className="iap-proj-role">{proj.role} • {proj.duration}</div>
+                      </div>
+                      {proj.liveUrl && (
+                        <a href={proj.liveUrl} target="_blank" rel="noreferrer" className="iap-social-btn">
+                          <span>Live Link</span>
+                          <ExternalLink size={11} />
+                        </a>
+                      )}
+                    </div>
+                    <p className="iap-proj-desc">{proj.description}</p>
+                    <div>
+                      {proj.tags.map((t) => (
+                        <span key={t} className="iap-tag-pill">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* TAB: SKILLS */}
+          {activeTab === "skills" && (
+            <div className="iap-card">
+              <h2 className="iap-card-title">
+                <Award size={18} style={{ color: "#2563eb" }} /> Verified Technical Skills & Endorsements
+              </h2>
+              <div className="iap-skills-grid" style={{ marginTop: "16px" }}>
+                {profile.skills.map((skill) => (
+                  <div key={skill.name} className="iap-skill-card">
+                    <div>
+                      <div className="iap-skill-name">{skill.name}</div>
+                      <div className="iap-skill-cat">{skill.category} • {skill.endorsements} endorsements</div>
+                    </div>
+                    <span className="iap-skill-level">{skill.level}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* TAB: APPLICATION TRACKER */}
+          {activeTab === "applications" && (
+            <div className="iap-card">
+              <h2 className="iap-card-title">
+                <CheckCircle2 size={18} style={{ color: "#2563eb" }} /> Application Tracking Board
+              </h2>
+              <div className="iap-table-container" style={{ marginTop: "16px" }}>
+                <table className="iap-table">
+                  <thead>
+                    <tr>
+                      <th>Role & Organization</th>
+                      <th>Type</th>
+                      <th>Applied Date</th>
+                      <th>Status</th>
+                      <th>Stipend</th>
+                      <th>Timeline</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {profile.applications.map((app) => {
+                      const statusClass =
+                        app.status === "Shortlisted"
+                          ? "iap-status-shortlisted"
+                          : app.status === "Interview Scheduled"
+                          ? "iap-status-interview"
+                          : app.status === "In Review"
+                          ? "iap-status-review"
+                          : "iap-status-applied";
+
+                      return (
+                        <tr key={app.id}>
+                          <td>
+                            <strong>{app.role}</strong>
+                            <div style={{ fontSize: "11px", color: "#64748b" }}>{app.company} • {app.location}</div>
+                          </td>
+                          <td>{app.type}</td>
+                          <td>{app.appliedDate}</td>
+                          <td>
+                            <span className={`iap-status-pill ${statusClass}`}>{app.status}</span>
+                          </td>
+                          <td style={{ fontWeight: 600 }}>{app.stipend}</td>
+                          <td style={{ fontSize: "11px", color: "#475569" }}>{app.timeline}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {/* TAB: RESUME VAULT */}
+          {activeTab === "resume" && (
+            <div className="iap-card">
+              <div className="iap-card-header">
+                <div>
+                  <h2 className="iap-card-title">
+                    <FileText size={18} style={{ color: "#2563eb" }} /> Verified ATS Resume Vault
+                  </h2>
+                  <p style={{ fontSize: "12px", color: "#64748b", marginTop: "2px" }}>
+                    {profile.resume.fileName} • {profile.resume.size} • {profile.resume.uploadedAt}
+                  </p>
+                </div>
+                <span className="iap-grade-badge">ATS Score: {profile.resume.atsScore}/100</span>
+              </div>
+
+              <div className="iap-vault-card">
+                <FileText size={44} className="iap-vault-icon" />
+                <h3 style={{ fontSize: "15px", fontWeight: 800, color: "#071c46" }}>
+                  {profile.fullName} — Software Engineering Resume
+                </h3>
+                <p style={{ fontSize: "12px", color: "#64748b", marginTop: "4px" }}>
+                  Formatted for automated screening & campus hiring drives.
+                </p>
+                <div>
+                  <button className="iap-download-btn" onClick={() => window.print()}>
+                    <Download size={15} /> Download PDF Resume
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </main>
+
+      {/* Edit Modal */}
+      {isEditModalOpen && (
+        <div className="iap-modal-backdrop">
+          <div className="iap-modal-box">
+            <div className="iap-modal-header">
+              <div className="iap-modal-title">Edit Candidate Profile</div>
+              <button
+                onClick={() => setIsEditModalOpen(false)}
+                style={{ background: "none", border: "none", cursor: "pointer", color: "#64748b" }}
+              >
+                <X size={18} />
+              </button>
             </div>
 
-            <form onSubmit={handleObjectiveSave} style={{ fontSize: '12px' }}>
-              <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', fontWeight: 700, marginBottom: '4px' }}>
-                  Write a brief summary of your skills and career interests
-                </label>
-                <textarea
-                  rows={5}
-                  value={objectiveText}
-                  onChange={(e) => setObjectiveText(e.target.value)}
-                  style={{ width: '100%', boxSizing: 'border-box', padding: '8px 10px', border: '1px solid #cbd5e1', borderRadius: '4px', fontSize: '12px', lineHeight: 1.6 }}
+            <form onSubmit={handleEditSubmit}>
+              <div className="iap-form-group">
+                <label className="iap-form-label">Full Name</label>
+                <input
+                  type="text"
+                  required
+                  value={editFormData.fullName}
+                  onChange={(e) => setEditFormData({ ...editFormData, fullName: e.target.value })}
+                  className="iap-form-input"
                 />
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
-                <button
-                  type="button"
-                  onClick={() => setEditModal(null)}
-                  style={{ padding: '6px 14px', background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}
-                >
+              <div className="iap-form-group">
+                <label className="iap-form-label">Headline</label>
+                <input
+                  type="text"
+                  required
+                  value={editFormData.headline}
+                  onChange={(e) => setEditFormData({ ...editFormData, headline: e.target.value })}
+                  className="iap-form-input"
+                />
+              </div>
+
+              <div className="iap-form-group">
+                <label className="iap-form-label">College / University</label>
+                <input
+                  type="text"
+                  required
+                  value={editFormData.college}
+                  onChange={(e) => setEditFormData({ ...editFormData, college: e.target.value })}
+                  className="iap-form-input"
+                />
+              </div>
+
+              <div className="iap-form-group">
+                <label className="iap-form-label">Location (City, State)</label>
+                <input
+                  type="text"
+                  required
+                  value={editFormData.location}
+                  onChange={(e) => setEditFormData({ ...editFormData, location: e.target.value })}
+                  className="iap-form-input"
+                />
+              </div>
+
+              <div className="iap-form-group">
+                <label className="iap-form-label">About / Bio</label>
+                <textarea
+                  rows={4}
+                  value={editFormData.about}
+                  onChange={(e) => setEditFormData({ ...editFormData, about: e.target.value })}
+                  className="iap-form-textarea"
+                />
+              </div>
+
+              <div className="iap-modal-footer">
+                <button type="button" onClick={() => setIsEditModalOpen(false)} className="iap-btn-cancel">
                   Cancel
                 </button>
-                <button
-                  type="submit"
-                  style={{ padding: '6px 16px', background: '#2563EB', color: '#ffffff', border: 'none', borderRadius: '4px', fontWeight: 700, cursor: 'pointer', fontSize: '12px' }}
-                >
-                  Save
+                <button type="submit" className="iap-btn-submit">
+                  Save Profile
                 </button>
               </div>
             </form>
