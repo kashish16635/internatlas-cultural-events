@@ -349,6 +349,7 @@ export default function StudentProfile({ onNavigateToEvents }) {
                 </ul>
               </div>
             )}
+            </div>
           </div>
         </div>
       </header>
