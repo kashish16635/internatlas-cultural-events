@@ -1,1209 +1,883 @@
 import React, { useState, useEffect } from 'react';
 import './StudentProfile.css';
 import {
-  User,
-  Mail,
-  Phone,
-  MapPin,
-  GraduationCap,
-  Briefcase,
-  Code,
-  FileText,
-  Share2,
-  Edit3,
-  ExternalLink,
-  Globe,
-  Award,
-  CheckCircle2,
-  Calendar,
-  Building,
-  Download,
-  Upload,
-  Plus,
+  Edit2,
   Trash2,
-  X,
-  Search,
-  Bell,
-  Clock,
+  Plus,
+  Download,
+  ExternalLink,
+  Briefcase,
+  GraduationCap,
+  Award,
+  FileText,
+  Bookmark,
+  Sliders,
   ChevronRight,
-  Sparkles,
-  BookOpen,
-  Bookmark
+  X,
+  MapPin,
+  Calendar,
+  Eye,
+  Check,
+  User,
+  Share2
 } from 'lucide-react';
 
-const Github = ({ size = 14 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-    <path d="M9 18c-4.51 2-5-2-7-2" />
-  </svg>
-);
-
-const Linkedin = ({ size = 14, color = "#0077b5" }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-    <rect x="2" y="9" width="4" height="12" />
-    <circle cx="4" cy="4" r="2" />
-  </svg>
-);
+const initialProfileData = {
+  fullName: "Kashish Khichi",
+  headline: "Computer Science Undergraduate | Full-Stack Developer",
+  college: "Delhi Technological University (DTU)",
+  degree: "B.Tech in Computer Science and Engineering",
+  batch: "2023 - 2027",
+  location: "New Delhi",
+  email: "thakur.kashish353@gmail.com",
+  phone: "+91 98765 43210",
+  github: "https://github.com/kashish16635",
+  linkedin: "https://linkedin.com/in/kashish-khichi",
+  portfolio: "https://kashishkhichi.dev",
+  education: [
+    {
+      id: "edu-1",
+      degree: "B.Tech, Computer Science and Engineering",
+      institution: "Delhi Technological University (DTU, formerly DCE)",
+      duration: "2023 - 2027",
+      grade: "8.84 / 10",
+      scoreLabel: "Current CGPA"
+    },
+    {
+      id: "edu-2",
+      degree: "Senior Secondary (XII), Science (CBSE)",
+      institution: "Delhi Public School, R.K. Puram",
+      duration: "2021 - 2023",
+      grade: "96.40%",
+      scoreLabel: "Board Performance"
+    },
+    {
+      id: "edu-3",
+      degree: "Secondary (X), CBSE",
+      institution: "Delhi Public School, R.K. Puram",
+      duration: "2019 - 2021",
+      grade: "97.20%",
+      scoreLabel: "Board Performance"
+    }
+  ],
+  projects: [
+    {
+      id: "proj-1",
+      title: "Cultural Events & Fest Finder for Campus Communities",
+      duration: "Aug 2026 - Sep 2026",
+      liveUrl: "https://internatlas-cultural-events.vercel.app",
+      description: "Engineered campus discovery dashboard with event schedules, category filters, live booking passes and QR ticketing using React and Node.js."
+    },
+    {
+      id: "proj-2",
+      title: "TechSprint - Peer-to-Peer Mock Interview Matcher",
+      duration: "May 2026 - Jul 2026",
+      liveUrl: "https://techsprint.dev",
+      description: "WebRTC powered collaborative code editor and peer interview room pairing college engineering students for peer code reviews."
+    }
+  ],
+  skills: [
+    { name: "React.js", level: "Advanced" },
+    { name: "Next.js", level: "Advanced" },
+    { name: "TypeScript", level: "Advanced" },
+    { name: "JavaScript", level: "Advanced" },
+    { name: "Tailwind CSS", level: "Advanced" },
+    { name: "Node.js", level: "Intermediate" },
+    { name: "PostgreSQL", level: "Intermediate" },
+    { name: "Git & GitHub", level: "Advanced" },
+    { name: "Data Structures & Algorithms", level: "Proficient" }
+  ],
+  applications: [
+    {
+      id: "app-1",
+      company: "InternAtlas Labs",
+      role: "Frontend Engineering Intern",
+      appliedDate: "18 Sep 2026",
+      status: "Shortlisted",
+      applicants: 142
+    },
+    {
+      id: "app-2",
+      company: "Razorpay",
+      role: "Product Engineering Intern",
+      appliedDate: "12 Sep 2026",
+      status: "In-touch",
+      applicants: 320
+    },
+    {
+      id: "app-3",
+      company: "Zepto Labs",
+      role: "React / Next.js Developer",
+      appliedDate: "05 Sep 2026",
+      status: "Applied",
+      applicants: 215
+    },
+    {
+      id: "app-4",
+      company: "Cred",
+      role: "Full Stack Engineering Fellow",
+      appliedDate: "28 Aug 2026",
+      status: "Applied",
+      applicants: 450
+    }
+  ]
+};
 
 export default function StudentProfile({ onNavigateToEvents }) {
-  // Active Tab
-  const [activeTab, setActiveTab] = useState('overview'); // 'overview', 'academics', 'experience', 'skills', 'applications', 'resume'
+  const [profile, setProfile] = useState(initialProfileData);
+  const [activeTab, setActiveTab] = useState("resume"); // resume, applications, bookmarks, preferences
+  const [activeModal, setActiveModal] = useState(null);
 
-  // Toast notification
-  const [toast, setToast] = useState(null);
-  const showToast = (message, type = 'success') => {
-    setToast({ message, type });
-    setTimeout(() => setToast(null), 3500);
-  };
-
-  // Student Profile Data State (persisted in localStorage)
-  const [profile, setProfile] = useState(() => {
-    try {
-      const saved = localStorage.getItem('internatlas_student_profile');
-      if (saved) return JSON.parse(saved);
-    } catch (e) {
-      console.error(e);
-    }
-    return {
-      fullName: 'Kashish Khichi',
-      headline: 'Computer Science Undergraduate & Full-Stack Developer',
-      college: 'Delhi Technological University (DTU)',
-      degree: 'B.Tech in Computer Science & Engineering',
-      graduationYear: '2026',
-      currentYear: '3rd Year (Pre-Final)',
-      cgpa: '8.84',
-      email: 'kashish.khichi@dtu.ac.in',
-      phone: '+91 98765 43210',
-      location: 'New Delhi, India',
-      bio: 'Enthusiastic and detail-driven Computer Science undergraduate with a passion for designing and building clean, high-performance web applications. Experienced in React, Next.js, modern component architectures, and REST API development. Seeking full-time internship opportunities where I can contribute to high-impact products.',
-      github: 'https://github.com/kashish16635',
-      linkedin: 'https://linkedin.com/in/kashish-khichi',
-      portfolio: 'https://kashishkhichi.dev',
-      preferredRole: 'Frontend Developer / Full-Stack Intern',
-      preferredLocation: 'Delhi NCR, Bengaluru, or Remote',
-      availability: 'Immediate (Summer 2026 / 6-Month Internship)',
-      expectedStipend: '₹25,000 – ₹45,000 / month',
-      openToRelocation: true,
-      skills: [
-        { name: 'React.js', verified: true, level: 'Advanced' },
-        { name: 'JavaScript (ES6+)', verified: true, level: 'Advanced' },
-        { name: 'Next.js', verified: true, level: 'Intermediate' },
-        { name: 'TypeScript', verified: false, level: 'Intermediate' },
-        { name: 'HTML5 & CSS3', verified: true, level: 'Expert' },
-        { name: 'Tailwind CSS', verified: true, level: 'Advanced' },
-        { name: 'Node.js', verified: false, level: 'Intermediate' },
-        { name: 'Express.js', verified: false, level: 'Intermediate' },
-        { name: 'REST APIs', verified: true, level: 'Advanced' },
-        { name: 'Git & GitHub', verified: true, level: 'Advanced' },
-        { name: 'UI/UX Prototyping', verified: false, level: 'Advanced' },
-        { name: 'PostgreSQL', verified: false, level: 'Familiar' }
-      ]
-    };
+  const [personalForm, setPersonalForm] = useState({
+    fullName: profile.fullName,
+    email: profile.email,
+    phone: profile.phone,
+    location: profile.location
   });
 
-  // Save profile to localStorage on changes
+  const [bookmarks, setBookmarks] = useState([
+    {
+      id: "bm-1",
+      title: "Full Stack Web Developer Intern",
+      company: "Swiggy",
+      location: "Bengaluru / Work from Home",
+      stipend: "₹35,000 /month",
+      duration: "6 Months",
+      posted: "2 days ago",
+      applyBy: "10 Oct 2026"
+    },
+    {
+      id: "bm-2",
+      title: "Frontend Engineering Intern",
+      company: "PhonePe",
+      location: "Bengaluru",
+      stipend: "₹40,000 /month",
+      duration: "3 Months",
+      posted: "1 day ago",
+      applyBy: "15 Oct 2026"
+    }
+  ]);
+
+  const [preferences, setPreferences] = useState({
+    fields: ["Web Development", "Frontend Development", "Software Engineering"],
+    workMode: "Work from home (WFH) & Hybrid",
+    locations: ["Delhi NCR", "Bengaluru", "Remote"],
+    minStipend: "₹20,000 /month",
+    availability: "Immediate (within 7 days)"
+  });
+  const [prefSaved, setPrefSaved] = useState(false);
+
   useEffect(() => {
-    localStorage.setItem('internatlas_student_profile', JSON.stringify(profile));
-  }, [profile]);
+    try {
+      const saved = localStorage.getItem("internatlas_student_profile");
+      if (saved) {
+        setProfile(JSON.parse(saved));
+      }
+    } catch (e) {
+      // ignore
+    }
+  }, []);
 
-  // Modal State for Editing Profile
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editFormData, setEditFormData] = useState({ ...profile });
-  const [newSkillInput, setNewSkillInput] = useState('');
-
-  const openEditModal = () => {
-    setEditFormData({ ...profile });
-    setIsEditModalOpen(true);
-  };
-
-  const handleSaveProfile = (e) => {
+  const handlePersonalSave = (e) => {
     e.preventDefault();
-    setProfile({ ...editFormData });
-    setIsEditModalOpen(false);
-    showToast('Profile updated successfully! ✨');
+    const updated = {
+      ...profile,
+      ...personalForm
+    };
+    setProfile(updated);
+    try {
+      localStorage.setItem("internatlas_student_profile", JSON.stringify(updated));
+    } catch (err) {}
+    setActiveModal(null);
   };
 
-  const handleAddSkill = () => {
-    if (!newSkillInput.trim()) return;
-    if (editFormData.skills.some(s => s.name.toLowerCase() === newSkillInput.trim().toLowerCase())) {
-      showToast('Skill already exists', 'error');
-      return;
-    }
-    setEditFormData(prev => ({
-      ...prev,
-      skills: [...prev.skills, { name: newSkillInput.trim(), verified: false, level: 'Intermediate' }]
-    }));
-    setNewSkillInput('');
+  const handlePrintResume = () => {
+    window.print();
   };
-
-  const handleRemoveSkill = (skillName) => {
-    setEditFormData(prev => ({
-      ...prev,
-      skills: prev.skills.filter(s => s.name !== skillName)
-    }));
-  };
-
-  // Copy Profile Link
-  const handleShareProfile = () => {
-    const url = window.location.href;
-    navigator.clipboard.writeText(url);
-    showToast('Profile link copied to clipboard! 📋');
-  };
-
-  // Mock Download Resume
-  const handleDownloadResume = () => {
-    showToast('Downloading Kashish_Khichi_Resume.pdf 📄');
-  };
-
-  // Education Records
-  const educationList = [
-    {
-      degree: 'Bachelor of Technology (B.Tech) in Computer Science & Engineering',
-      institution: 'Delhi Technological University (DTU), New Delhi',
-      period: '2022 – 2026 (Expected)',
-      score: 'CGPA: 8.84 / 10.0',
-      description: 'Relevant Coursework: Data Structures & Algorithms, Object-Oriented Programming, Database Management Systems, Operating Systems, Computer Networks, Web Technologies.'
-    },
-    {
-      degree: 'Senior Secondary Certificate (Class XII) – CBSE',
-      institution: 'Delhi Public School (DPS), R.K. Puram',
-      period: '2020 – 2022',
-      score: 'Aggregate: 95.2%',
-      description: 'Major Subjects: Physics, Chemistry, Mathematics, Computer Science, English.'
-    },
-    {
-      degree: 'Secondary School Examination (Class X) – CBSE',
-      institution: 'Delhi Public School (DPS)',
-      period: '2020',
-      score: 'Aggregate: 96.8%',
-      description: 'Graduated with Merit Certificate in Mathematics and Science.'
-    }
-  ];
-
-  // Experience Records
-  const experienceList = [
-    {
-      role: 'Frontend Engineering Intern',
-      company: 'TheAiSignal / InternAtlas',
-      type: 'Internship',
-      period: 'Sep 2026 – Present',
-      location: 'Remote',
-      points: [
-        'Collaborating with product team to build next-generation student opportunity modules (Cultural Events & Student Profile) on InternAtlas.',
-        'Engineered responsive, accessible React components with sub-second page rendering and interactive filtering.',
-        'Structured modular data schemas and REST API contracts for clean backend handoff.'
-      ],
-      tags: ['React 19', 'Next.js', 'Tailwind CSS', 'Vite', 'Git']
-    },
-    {
-      role: 'Web Development Intern',
-      company: 'TechSprint Solutions',
-      type: 'Summer Internship',
-      period: 'May 2025 – Jul 2025',
-      location: 'New Delhi, India',
-      points: [
-        'Developed reusable dashboard widgets and application forms used by over 12,000+ collegiate learners.',
-        'Optimized client-side bundle size by 35% through code-splitting and asset lazy loading.',
-        'Participated in daily standups and weekly sprint code reviews.'
-      ],
-      tags: ['JavaScript', 'React', 'CSS Modules', 'REST APIs']
-    }
-  ];
-
-  // Projects Records
-  const projectsList = [
-    {
-      title: 'InternAtlas: Cultural Events & Discovery Engine',
-      category: 'Web Application',
-      period: 'Sep 2026',
-      description: 'A comprehensive college fest and cultural competition portal built for Indian university students. Features multi-filter search, tabbed rulebooks, dynamic crew registration, and real-time digital pass generation.',
-      tags: ['React', 'Express.js', 'REST API', 'Vite', 'CSS Architecture'],
-      demoLink: 'https://internatlas-cultural-events.vercel.app',
-      githubLink: 'https://github.com/kashish16635/internatlas-cultural-events'
-    },
-    {
-      title: 'DevCollab: Real-Time Pair Programming Room',
-      category: 'Full-Stack Web App',
-      period: 'Jan 2026',
-      description: 'In-browser synchronized code editor supporting live syntax highlighting, multi-cursor presence, and private room sharing for peer programming practice.',
-      tags: ['TypeScript', 'Node.js', 'Socket.io', 'Monaco Editor'],
-      demoLink: 'https://github.com/kashish16635',
-      githubLink: 'https://github.com/kashish16635'
-    },
-    {
-      title: 'CampusBazaar: P2P University Resource Exchange',
-      category: 'Campus Platform',
-      period: 'Oct 2025',
-      description: 'Peer-to-peer textbook, calculator, and electronics marketplace serving 450+ verified college students with in-app chat and student ID verification.',
-      tags: ['Next.js', 'PostgreSQL', 'Prisma', 'Tailwind'],
-      demoLink: 'https://github.com/kashish16635',
-      githubLink: 'https://github.com/kashish16635'
-    }
-  ];
-
-  // Applied Opportunities Records
-  const applicationsList = [
-    {
-      id: 'APP-101',
-      title: 'Frontend Developer Intern',
-      company: 'AI Signal Labs',
-      appliedDate: 'Sep 15, 2026',
-      type: 'Internship • Remote',
-      stipend: '₹25,000/mo',
-      status: 'Shortlisted',
-      statusClass: 'ia-status-shortlisted'
-    },
-    {
-      id: 'APP-102',
-      title: 'Software Engineering Intern (Summer 2026)',
-      company: 'Adobe India',
-      appliedDate: 'Sep 10, 2026',
-      type: 'Internship • Noida',
-      stipend: '₹50,000/mo',
-      status: 'In Review',
-      statusClass: 'ia-status-review'
-    },
-    {
-      id: 'APP-103',
-      title: 'Product Design & UI Intern',
-      company: 'Razorpay',
-      appliedDate: 'Aug 28, 2026',
-      type: 'Internship • Bengaluru',
-      stipend: '₹35,000/mo',
-      status: 'In Review',
-      statusClass: 'ia-status-review'
-    },
-    {
-      id: 'APP-104',
-      title: 'Campus Tech Innovator',
-      company: 'Google Cloud Student Program',
-      appliedDate: 'Aug 20, 2026',
-      type: 'Ambassador • Campus',
-      stipend: 'Perks & Swag',
-      status: 'Applied',
-      statusClass: 'ia-status-applied'
-    }
-  ];
 
   return (
-    <div className="ia-profile-wrapper">
-      {/* Toast Notification */}
-      {toast && (
-        <div style={{
-          position: 'fixed',
-          bottom: '24px',
-          right: '24px',
-          zIndex: 9999,
-          background: toast.type === 'error' ? '#ef4444' : '#10b981',
-          color: '#ffffff',
-          padding: '12px 22px',
-          borderRadius: '9999px',
-          boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
-          fontSize: '13.5px',
-          fontWeight: '600',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px'
-        }}>
-          {toast.message}
-        </div>
-      )}
-
-      {/* Top Navigation Bar (Matching internatlas.in) */}
-      <header className="ia-nav-header">
-        <div className="ia-nav-container">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
-            <a href="/" className="ia-logo">
-              Intern<span className="ia-logo-dot">Atlas.</span>
-            </a>
-            <nav className="ia-nav-links">
-              <a href="/" className="ia-nav-link">Home</a>
-              <a href="/internships" className="ia-nav-link">Internships</a>
-              {onNavigateToEvents && (
-                <button
-                  onClick={onNavigateToEvents}
-                  className="ia-nav-link"
-                  style={{ border: 'none', background: 'transparent', cursor: 'pointer' }}
-                >
-                  Cultural Events
-                </button>
-              )}
-              <a href="/competitions" className="ia-nav-link">Competitions</a>
-              <a href="/hackathons" className="ia-nav-link">Hackathons</a>
-              <span className="ia-nav-link active">Student Profile</span>
-            </nav>
+    <div className="min-h-screen bg-[#F4F6F9] font-sans text-slate-800 antialiased pb-20">
+      {/* Top Banner & Header */}
+      <header className="sticky top-0 z-40 bg-white border-b border-slate-200">
+        <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <span className="text-xl font-black tracking-tight text-[#071C46]">
+              Intern<span className="text-[#1DA1F2]">Atlas.</span>
+            </span>
+            <div className="hidden md:flex items-center gap-5 text-xs font-semibold text-slate-600">
+              <span className="cursor-pointer hover:text-[#1DA1F2]" onClick={onNavigateToEvents}>Cultural Events</span>
+              <span className="cursor-pointer text-[#1DA1F2] border-b-2 border-[#1DA1F2] py-4">Student Profile & Resume</span>
+            </div>
           </div>
 
-          <div className="ia-nav-actions">
-            <button className="ia-icon-btn" title="Search Opportunities">
-              <Search size={16} />
+          <div className="flex items-center gap-3">
+            <button
+              onClick={onNavigateToEvents}
+              className="text-xs font-semibold text-slate-600 hover:text-slate-900 border border-slate-200 rounded-md px-3 py-1.5"
+            >
+              Switch to Events Finder
             </button>
-            <button className="ia-icon-btn" title="Notifications">
-              <Bell size={16} />
-              <span className="ia-badge-dot"></span>
-            </button>
-            <div className="ia-user-pill" onClick={openEditModal} title="View Account Settings">
-              <div className="ia-avatar-sm">
-                {profile.fullName.split(' ').map(n => n[0]).join('')}
-              </div>
-              <span style={{ fontSize: '13px', fontWeight: 700, color: '#071c46' }}>
-                {profile.fullName.split(' ')[0]}
-              </span>
+            <div className="size-8 rounded-full bg-[#1DA1F2] text-white flex items-center justify-center font-bold text-xs">
+              K
             </div>
           </div>
         </div>
       </header>
 
-      {/* Main Container */}
-      <main className="ia-main-container">
-        {/* Breadcrumb */}
-        <div className="ia-breadcrumb">
-          <a href="/">Home</a>
-          <ChevronRight size={13} />
-          <span style={{ color: '#071c46', fontWeight: 600 }}>Student Profile</span>
-        </div>
-
-        {/* Profile Hero Card */}
-        <section className="ia-profile-hero-card">
-          <div className="ia-cover-banner">
-            <div className="ia-cover-pattern"></div>
-            <div className="ia-cover-badge">
-              <Sparkles size={11} style={{ display: 'inline', marginRight: '4px' }} />
-              Active Job Seeker
-            </div>
-          </div>
-
-          <div className="ia-hero-content">
-            <div className="ia-hero-top-row">
-              <div className="ia-avatar-wrapper">
-                <div className="ia-avatar-lg">
-                  {profile.fullName.split(' ').map(n => n[0]).join('')}
-                </div>
-                <div className="ia-status-dot" title="Available for opportunities"></div>
-                <button className="ia-avatar-edit-btn" onClick={openEditModal} title="Change Photo">
-                  <Edit3 size={13} />
-                </button>
-              </div>
-
-              <div className="ia-hero-actions">
-                <button className="ia-btn-primary" onClick={openEditModal}>
-                  <Edit3 size={14} />
-                  Edit Profile
-                </button>
-                <button className="ia-btn-secondary" onClick={handleShareProfile}>
-                  <Share2 size={14} />
-                  Share Link
-                </button>
-                <button className="ia-btn-secondary" onClick={handleDownloadResume}>
-                  <Download size={14} />
-                  Download CV
-                </button>
-              </div>
-            </div>
-
-            {/* Profile Info Details */}
-            <div className="ia-profile-name-row">
-              <h1 className="ia-profile-name">{profile.fullName}</h1>
-              <span className="ia-verified-tag">
-                <CheckCircle2 size={12} />
-                Verified Student
-              </span>
-            </div>
-
-            <p className="ia-profile-headline">{profile.headline}</p>
-
-            <div className="ia-profile-meta-chips">
-              <span className="ia-meta-chip">
-                <GraduationCap size={15} color="#2563eb" />
-                {profile.college} ({profile.graduationYear})
-              </span>
-              <span className="ia-meta-chip">
-                <MapPin size={15} color="#64748b" />
-                {profile.location}
-              </span>
-              <span className="ia-meta-chip">
-                <Mail size={15} color="#64748b" />
-                {profile.email}
-              </span>
-              <span className="ia-meta-chip">
-                <Phone size={15} color="#64748b" />
-                {profile.phone}
-              </span>
-            </div>
-
-            {/* Social & Portfolio Links */}
-            <div className="ia-social-links">
-              {profile.github && (
-                <a href={profile.github} target="_blank" rel="noreferrer" className="ia-social-badge">
-                  <Github size={14} />
-                  GitHub
-                  <ExternalLink size={11} color="#94a3b8" />
-                </a>
-              )}
-              {profile.linkedin && (
-                <a href={profile.linkedin} target="_blank" rel="noreferrer" className="ia-social-badge">
-                  <Linkedin size={14} color="#0077b5" />
-                  LinkedIn
-                  <ExternalLink size={11} color="#94a3b8" />
-                </a>
-              )}
-              {profile.portfolio && (
-                <a href={profile.portfolio} target="_blank" rel="noreferrer" className="ia-social-badge">
-                  <Globe size={14} color="#06b6d4" />
-                  Portfolio
-                  <ExternalLink size={11} color="#94a3b8" />
-                </a>
-              )}
-            </div>
-          </div>
-        </section>
-
-        {/* Profile Strength Bar */}
-        <section className="ia-strength-banner">
-          <div className="ia-strength-info">
-            <div className="ia-strength-circle">88%</div>
-            <div className="ia-strength-text">
-              <h4>Profile Completeness: All-Star ⭐</h4>
-              <p>Great job! Complete your portfolio to increase recruiter visibility by 3.5x.</p>
-            </div>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-            <div className="ia-strength-bar-bg">
-              <div className="ia-strength-bar-fill" style={{ width: '88%' }}></div>
-            </div>
+      {/* Internshala Style Sub-Navigation */}
+      <div className="border-b border-slate-200 bg-white shadow-xs sticky top-14 z-30">
+        <div className="max-w-[1000px] mx-auto px-4 sm:px-6 flex items-center justify-between">
+          <div className="flex gap-4 sm:gap-8 overflow-x-auto scrollbar-none py-1">
             <button
-              onClick={openEditModal}
-              style={{
-                background: '#2563eb',
-                color: '#fff',
-                border: 'none',
-                padding: '6px 14px',
-                borderRadius: '9999px',
-                fontSize: '12px',
-                fontWeight: 700,
-                cursor: 'pointer'
-              }}
+              onClick={() => setActiveTab("resume")}
+              className={`flex items-center gap-2 border-b-2 py-3.5 text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap ${
+                activeTab === "resume"
+                  ? "border-[#1DA1F2] text-[#1DA1F2]"
+                  : "border-transparent text-slate-600 hover:text-slate-900"
+              }`}
             >
-              Add Section +
+              <FileText size={16} />
+              <span>Resume</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("applications")}
+              className={`flex items-center gap-2 border-b-2 py-3.5 text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap ${
+                activeTab === "applications"
+                  ? "border-[#1DA1F2] text-[#1DA1F2]"
+                  : "border-transparent text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <Briefcase size={16} />
+              <span>My Applications</span>
+              <span className="rounded-full bg-blue-100 px-2 py-0.2 text-[11px] font-bold text-blue-700">
+                {profile.applications.length}
+              </span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("bookmarks")}
+              className={`flex items-center gap-2 border-b-2 py-3.5 text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap ${
+                activeTab === "bookmarks"
+                  ? "border-[#1DA1F2] text-[#1DA1F2]"
+                  : "border-transparent text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <Bookmark size={16} />
+              <span>My Bookmarks</span>
+              <span className="rounded-full bg-slate-100 px-2 py-0.2 text-[11px] font-bold text-slate-600">
+                {bookmarks.length}
+              </span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("preferences")}
+              className={`flex items-center gap-2 border-b-2 py-3.5 text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap ${
+                activeTab === "preferences"
+                  ? "border-[#1DA1F2] text-[#1DA1F2]"
+                  : "border-transparent text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <Sliders size={16} />
+              <span>Edit Preferences</span>
             </button>
           </div>
-        </section>
 
-        {/* Quick Stats Grid */}
-        <section className="ia-stats-grid">
-          <div className="ia-stat-card">
-            <div className="ia-stat-icon-box" style={{ background: '#eff6ff', color: '#2563eb' }}>
-              <Briefcase size={20} />
+          {activeTab === "resume" && (
+            <button
+              onClick={handlePrintResume}
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-md border border-[#1DA1F2] px-3.5 py-1.5 text-xs font-semibold text-[#1DA1F2] hover:bg-blue-50 transition"
+            >
+              <Download size={13} />
+              <span>Download Resume</span>
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className="max-w-[1000px] mx-auto px-4 py-8 sm:px-6">
+        {/* RESUME TAB */}
+        {activeTab === "resume" && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-slate-900">Resume</h1>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Keep your resume up to date. Employers download this resume when you apply.
+                </p>
+              </div>
+
+              <button
+                onClick={handlePrintResume}
+                className="sm:hidden inline-flex items-center gap-1 rounded-md border border-[#1DA1F2] px-3 py-1.5 text-xs font-semibold text-[#1DA1F2]"
+              >
+                <Download size={13} /> PDF
+              </button>
             </div>
-            <div>
-              <div className="ia-stat-number">{applicationsList.length}</div>
-              <div className="ia-stat-label">Applications Submitted</div>
-            </div>
-          </div>
 
-          <div className="ia-stat-card">
-            <div className="ia-stat-icon-box" style={{ background: '#f0fdf4', color: '#16a34a' }}>
-              <CheckCircle2 size={20} />
-            </div>
-            <div>
-              <div className="ia-stat-number">1</div>
-              <div className="ia-stat-label">Interviews Scheduled</div>
-            </div>
-          </div>
+            {/* Resume Sheet */}
+            <div className="rounded-lg border border-slate-200 bg-white p-6 sm:p-10 shadow-sm print:border-none print:shadow-none">
+              {/* 1. PERSONAL DETAILS HEADER */}
+              <div className="flex items-start justify-between border-b border-slate-200 pb-6">
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+                    {profile.fullName}
+                  </h2>
+                  <div className="mt-2 space-y-0.5 text-xs text-slate-600 sm:text-sm">
+                    <p>{profile.email}</p>
+                    <p>{profile.phone}</p>
+                    <p>{profile.location}</p>
+                  </div>
+                </div>
 
-          <div className="ia-stat-card">
-            <div className="ia-stat-icon-box" style={{ background: '#faf5ff', color: '#9333ea' }}>
-              <Bookmark size={20} />
-            </div>
-            <div>
-              <div className="ia-stat-number">8</div>
-              <div className="ia-stat-label">Saved Opportunities</div>
-            </div>
-          </div>
+                <button
+                  onClick={() => {
+                    setPersonalForm({
+                      fullName: profile.fullName,
+                      email: profile.email,
+                      phone: profile.phone,
+                      location: profile.location,
+                    });
+                    setActiveModal("personal");
+                  }}
+                  className="flex size-8 items-center justify-center rounded-full text-slate-500 hover:bg-slate-100 hover:text-slate-900"
+                  title="Edit Personal Details"
+                >
+                  <Edit2 size={16} />
+                </button>
+              </div>
 
-          <div className="ia-stat-card">
-            <div className="ia-stat-icon-box" style={{ background: '#fff7ed', color: '#ea580c' }}>
-              <Award size={20} />
-            </div>
-            <div>
-              <div className="ia-stat-number">6</div>
-              <div className="ia-stat-label">Verified Skill Badges</div>
-            </div>
-          </div>
-        </section>
+              {/* 2. EDUCATION SECTION */}
+              <div className="border-b border-slate-200 py-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                    Education
+                  </h3>
+                  <button
+                    onClick={() => alert("Add Education form")}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#1DA1F2] hover:underline"
+                  >
+                    <Plus size={13} />
+                    <span>Add education</span>
+                  </button>
+                </div>
 
-        {/* Tab Navigation */}
-        <nav className="ia-profile-nav-tabs">
-          <button
-            className={`ia-tab-item ${activeTab === 'overview' ? 'active' : ''}`}
-            onClick={() => setActiveTab('overview')}
-          >
-            <User size={15} />
-            Overview & About
-          </button>
+                <div className="space-y-5">
+                  {profile.education.map((edu) => (
+                    <div key={edu.id} className="group flex items-start justify-between">
+                      <div className="space-y-0.5">
+                        <h4 className="text-sm font-bold text-slate-900">{edu.degree}</h4>
+                        <p className="text-xs text-slate-700 font-medium">{edu.institution}</p>
+                        <p className="text-xs text-slate-500">{edu.duration}</p>
+                        <p className="text-xs font-semibold text-slate-700 mt-1">
+                          {edu.scoreLabel}: <span className="text-emerald-700 font-bold">{edu.grade}</span>
+                        </p>
+                      </div>
 
-          <button
-            className={`ia-tab-item ${activeTab === 'academics' ? 'active' : ''}`}
-            onClick={() => setActiveTab('academics')}
-          >
-            <GraduationCap size={15} />
-            Academics
-            <span className="ia-tab-count">{educationList.length}</span>
-          </button>
+                      <button className="text-slate-400 hover:text-slate-700" title="Edit">
+                        <Edit2 size={14} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-          <button
-            className={`ia-tab-item ${activeTab === 'experience' ? 'active' : ''}`}
-            onClick={() => setActiveTab('experience')}
-          >
-            <Briefcase size={15} />
-            Experience & Projects
-            <span className="ia-tab-count">{experienceList.length + projectsList.length}</span>
-          </button>
+              {/* 3. JOBS SECTION */}
+              <div className="border-b border-slate-200 py-6">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                    Jobs
+                  </h3>
+                  <button
+                    onClick={() => alert("Add Full-Time Job details")}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#1DA1F2] hover:underline"
+                  >
+                    <Plus size={13} />
+                    <span>Add job</span>
+                  </button>
+                </div>
+                <p className="text-xs text-slate-400 italic">
+                  No full-time jobs added yet. Click &quot;Add job&quot; if you have worked in a full-time or part-time role.
+                </p>
+              </div>
 
-          <button
-            className={`ia-tab-item ${activeTab === 'skills' ? 'active' : ''}`}
-            onClick={() => setActiveTab('skills')}
-          >
-            <Code size={15} />
-            Skills & Tech
-            <span className="ia-tab-count">{profile.skills.length}</span>
-          </button>
+              {/* 4. INTERNSHIPS SECTION */}
+              <div className="border-b border-slate-200 py-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                    Internships
+                  </h3>
+                  <button
+                    onClick={() => alert("Add internship")}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#1DA1F2] hover:underline"
+                  >
+                    <Plus size={13} />
+                    <span>Add internship</span>
+                  </button>
+                </div>
 
-          <button
-            className={`ia-tab-item ${activeTab === 'applications' ? 'active' : ''}`}
-            onClick={() => setActiveTab('applications')}
-          >
-            <Clock size={15} />
-            Applications Tracker
-            <span className="ia-tab-count">{applicationsList.length}</span>
-          </button>
+                <div className="space-y-5">
+                  <div className="group flex items-start justify-between">
+                    <div className="space-y-1">
+                      <h4 className="text-sm font-bold text-slate-900">
+                        Frontend Engineering Intern
+                      </h4>
+                      <p className="text-xs font-semibold text-slate-700">InternAtlas Labs</p>
+                      <p className="text-xs text-slate-500">Bengaluru (Work from Home) • Sep 2026 - Present</p>
+                      <ul className="mt-2 list-disc pl-4 space-y-1 text-xs text-slate-600">
+                        <li>Engineered the responsive Student Profile & Opportunity Modules using Next.js 16, TypeScript, and Tailwind CSS.</li>
+                        <li>Implemented local persistence and dynamic resume paper generator benchmarked against industry standards.</li>
+                      </ul>
+                    </div>
 
-          <button
-            className={`ia-tab-item ${activeTab === 'resume' ? 'active' : ''}`}
-            onClick={() => setActiveTab('resume')}
-          >
-            <FileText size={15} />
-            Resume Vault
-          </button>
-        </nav>
-
-        {/* Tab Content Panels */}
-        <div className="ia-panel-grid">
-          {/* Main Left Column */}
-          <div>
-            {/* TAB 1: OVERVIEW */}
-            {activeTab === 'overview' && (
-              <>
-                <div className="ia-card">
-                  <div className="ia-card-header">
-                    <h3 className="ia-card-title">
-                      <User size={18} color="#2563eb" />
-                      About Me
-                    </h3>
-                    <button className="ia-card-action-btn" onClick={openEditModal}>
-                      Edit Bio
+                    <button className="text-slate-400 hover:text-slate-700" title="Edit">
+                      <Edit2 size={14} />
                     </button>
                   </div>
-                  <p style={{ fontSize: '14px', lineHeight: '1.7', color: '#475569' }}>
-                    {profile.bio}
+                </div>
+              </div>
+
+              {/* 5. POSITIONS OF RESPONSIBILITY */}
+              <div className="border-b border-slate-200 py-6">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                    Positions of Responsibility
+                  </h3>
+                  <button
+                    onClick={() => alert("Add position of responsibility")}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#1DA1F2] hover:underline"
+                  >
+                    <Plus size={13} />
+                    <span>Add position of responsibility</span>
+                  </button>
+                </div>
+
+                <div className="text-xs text-slate-700 space-y-1">
+                  <p className="font-semibold text-slate-900">
+                    Core Technical Council Member — DTU Student Developer Club
+                  </p>
+                  <p className="text-slate-500 text-[11px]">Aug 2024 - Present</p>
+                  <p className="text-slate-600">
+                    Organized annual technical hackathons, conducted developer orientation sessions for 300+ students, and contributed to departmental web portals.
                   </p>
                 </div>
+              </div>
 
-                <div className="ia-card">
-                  <div className="ia-card-header">
-                    <h3 className="ia-card-title">
-                      <Sparkles size={18} color="#06b6d4" />
-                      Career Preferences
-                    </h3>
-                    <button className="ia-card-action-btn" onClick={openEditModal}>
-                      Update
-                    </button>
-                  </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
-                    <div>
-                      <div style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', color: '#64748b' }}>Preferred Roles</div>
-                      <div style={{ fontSize: '13.5px', fontWeight: 700, color: '#071c46', marginTop: '2px' }}>{profile.preferredRole}</div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', color: '#64748b' }}>Preferred Locations</div>
-                      <div style={{ fontSize: '13.5px', fontWeight: 700, color: '#071c46', marginTop: '2px' }}>{profile.preferredLocation}</div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', color: '#64748b' }}>Availability</div>
-                      <div style={{ fontSize: '13.5px', fontWeight: 700, color: '#071c46', marginTop: '2px' }}>{profile.availability}</div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', color: '#64748b' }}>Expected Stipend</div>
-                      <div style={{ fontSize: '13.5px', fontWeight: 700, color: '#071c46', marginTop: '2px' }}>{profile.expectedStipend}</div>
-                    </div>
-                  </div>
+              {/* 6. TRAININGS / COURSES */}
+              <div className="border-b border-slate-200 py-6">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                    Trainings / Courses
+                  </h3>
+                  <button
+                    onClick={() => alert("Add training or online course")}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#1DA1F2] hover:underline"
+                  >
+                    <Plus size={13} />
+                    <span>Add training/ course</span>
+                  </button>
                 </div>
 
-                {/* Featured Projects in Overview */}
-                <div className="ia-card">
-                  <div className="ia-card-header">
-                    <h3 className="ia-card-title">
-                      <Code size={18} color="#2563eb" />
-                      Featured Projects
-                    </h3>
-                    <button className="ia-card-action-btn" onClick={() => setActiveTab('experience')}>
-                      View All ({projectsList.length})
-                    </button>
+                <div className="text-xs text-slate-700 space-y-1">
+                  <div className="flex items-center justify-between">
+                    <p className="font-semibold text-slate-900">
+                      Full Stack Web Development Specialization
+                    </p>
+                    <span className="text-[11px] text-slate-500">Jun 2024 - Aug 2024</span>
                   </div>
-                  {projectsList.slice(0, 2).map((proj, idx) => (
-                    <div key={idx} className="ia-project-card">
-                      <div className="ia-project-top">
-                        <div>
-                          <div className="ia-project-name">{proj.title}</div>
-                          <div style={{ fontSize: '12px', color: '#64748b' }}>{proj.category} • {proj.period}</div>
-                        </div>
-                        <div className="ia-project-links">
-                          {proj.demoLink && (
-                            <a href={proj.demoLink} target="_blank" rel="noreferrer" className="ia-project-link-btn">
-                              Live Demo
+                  <p className="text-slate-600 text-xs">Meta & Coursera • Online</p>
+                  <p className="text-slate-500 text-xs">
+                    Comprehensive training covering React, modern asynchronous JavaScript, REST APIs, and database fundamentals.
+                  </p>
+                </div>
+              </div>
+
+              {/* 7. ACADEMICS / PERSONAL PROJECTS */}
+              <div className="border-b border-slate-200 py-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                    Academics / Personal Projects
+                  </h3>
+                  <button
+                    onClick={() => alert("Add project")}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#1DA1F2] hover:underline"
+                  >
+                    <Plus size={13} />
+                    <span>Add academic/ personal project</span>
+                  </button>
+                </div>
+
+                <div className="space-y-5">
+                  {profile.projects.map((proj) => (
+                    <div key={proj.id} className="group flex items-start justify-between">
+                      <div className="space-y-1 max-w-xl">
+                        <div className="flex items-center gap-2">
+                          <h4 className="text-sm font-bold text-slate-900">{proj.title}</h4>
+                          {proj.liveUrl && (
+                            <a
+                              href={proj.liveUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-xs font-semibold text-[#1DA1F2] hover:underline inline-flex items-center gap-0.5"
+                            >
+                              <span>Project link</span>
                               <ExternalLink size={11} />
                             </a>
                           )}
-                          {proj.githubLink && (
-                            <a href={proj.githubLink} target="_blank" rel="noreferrer" className="ia-project-link-btn">
-                              <Github size={11} />
-                              Code
-                            </a>
-                          )}
                         </div>
+                        <p className="text-xs text-slate-500">{proj.duration}</p>
+                        <p className="text-xs text-slate-600 leading-relaxed">{proj.description}</p>
                       </div>
-                      <p style={{ fontSize: '13px', color: '#475569', marginBottom: '10px' }}>
-                        {proj.description}
-                      </p>
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                        {proj.tags.map((tag, tIdx) => (
-                          <span key={tIdx} style={{
-                            fontSize: '11px',
-                            fontWeight: 600,
-                            background: '#f1f5f9',
-                            color: '#071c46',
-                            padding: '3px 8px',
-                            borderRadius: '6px'
-                          }}>
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
+
+                      <button className="text-slate-400 hover:text-slate-700" title="Edit">
+                        <Edit2 size={14} />
+                      </button>
                     </div>
                   ))}
                 </div>
-              </>
-            )}
+              </div>
 
-            {/* TAB 2: ACADEMICS */}
-            {activeTab === 'academics' && (
-              <div className="ia-card">
-                <div className="ia-card-header">
-                  <h3 className="ia-card-title">
-                    <GraduationCap size={18} color="#2563eb" />
-                    Formal Education
+              {/* 8. SKILLS SECTION */}
+              <div className="border-b border-slate-200 py-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                    Skills
                   </h3>
-                  <button className="ia-card-action-btn" onClick={openEditModal}>
-                    Edit Education
+                  <button
+                    onClick={() => alert("Add skill")}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#1DA1F2] hover:underline"
+                  >
+                    <Plus size={13} />
+                    <span>Add skill</span>
                   </button>
                 </div>
-                {educationList.map((edu, idx) => (
-                  <div key={idx} className="ia-timeline-item">
-                    <div className="ia-timeline-dot"></div>
-                    <div className="ia-item-title">{edu.degree}</div>
-                    <div className="ia-item-sub">{edu.institution}</div>
-                    <div className="ia-item-meta">
-                      📅 {edu.period} • <strong style={{ color: '#16a34a' }}>{edu.score}</strong>
-                    </div>
-                    <p className="ia-item-desc">{edu.description}</p>
-                  </div>
-                ))}
-              </div>
-            )}
 
-            {/* TAB 3: EXPERIENCE & PROJECTS */}
-            {activeTab === 'experience' && (
-              <>
-                <div className="ia-card">
-                  <div className="ia-card-header">
-                    <h3 className="ia-card-title">
-                      <Briefcase size={18} color="#2563eb" />
-                      Work Experience & Internships
-                    </h3>
-                  </div>
-                  {experienceList.map((exp, idx) => (
-                    <div key={idx} className="ia-timeline-item">
-                      <div className="ia-timeline-dot"></div>
-                      <div className="ia-item-title">{exp.role}</div>
-                      <div className="ia-item-sub">
-                        {exp.company} <span style={{ color: '#2563eb', fontWeight: 600 }}>({exp.type})</span>
-                      </div>
-                      <div className="ia-item-meta">
-                        📅 {exp.period} • 📍 {exp.location}
-                      </div>
-                      <ul style={{ paddingLeft: '18px', fontSize: '13px', color: '#475569', marginBottom: '8px', lineHeight: 1.6 }}>
-                        {exp.points.map((pt, pIdx) => (
-                          <li key={pIdx}>{pt}</li>
-                        ))}
-                      </ul>
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                        {exp.tags.map((tag, tIdx) => (
-                          <span key={tIdx} style={{
-                            fontSize: '11px',
-                            fontWeight: 600,
-                            background: '#eff6ff',
-                            color: '#1e40af',
-                            padding: '3px 8px',
-                            borderRadius: '6px'
-                          }}>
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="ia-card">
-                  <div className="ia-card-header">
-                    <h3 className="ia-card-title">
-                      <Code size={18} color="#2563eb" />
-                      Key Technical Projects
-                    </h3>
-                  </div>
-                  {projectsList.map((proj, idx) => (
-                    <div key={idx} className="ia-project-card">
-                      <div className="ia-project-top">
-                        <div>
-                          <div className="ia-project-name">{proj.title}</div>
-                          <div style={{ fontSize: '12px', color: '#64748b' }}>{proj.category} • {proj.period}</div>
-                        </div>
-                        <div className="ia-project-links">
-                          {proj.demoLink && (
-                            <a href={proj.demoLink} target="_blank" rel="noreferrer" className="ia-project-link-btn">
-                              Live Demo
-                              <ExternalLink size={11} />
-                            </a>
-                          )}
-                          {proj.githubLink && (
-                            <a href={proj.githubLink} target="_blank" rel="noreferrer" className="ia-project-link-btn">
-                              <Github size={11} />
-                              Code
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                      <p style={{ fontSize: '13px', color: '#475569', marginBottom: '10px' }}>
-                        {proj.description}
-                      </p>
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                        {proj.tags.map((tag, tIdx) => (
-                          <span key={tIdx} style={{
-                            fontSize: '11px',
-                            fontWeight: 600,
-                            background: '#f1f5f9',
-                            color: '#071c46',
-                            padding: '3px 8px',
-                            borderRadius: '6px'
-                          }}>
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </>
-            )}
-
-            {/* TAB 4: SKILLS */}
-            {activeTab === 'skills' && (
-              <div className="ia-card">
-                <div className="ia-card-header">
-                  <h3 className="ia-card-title">
-                    <Code size={18} color="#2563eb" />
-                    Verified Skills & Technologies
-                  </h3>
-                  <button className="ia-card-action-btn" onClick={openEditModal}>
-                    Manage Skills
-                  </button>
-                </div>
-                <div className="ia-skills-wrap">
-                  {profile.skills.map((skill, idx) => (
-                    <div key={idx} className="ia-skill-pill">
-                      {skill.verified && <CheckCircle2 size={13} className="ia-skill-verified" />}
-                      <span>{skill.name}</span>
-                      <span style={{ fontSize: '10px', color: '#64748b', fontWeight: 600 }}>
-                        • {skill.level}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* TAB 5: APPLICATIONS TRACKER */}
-            {activeTab === 'applications' && (
-              <div className="ia-card" style={{ padding: '0', overflow: 'hidden' }}>
-                <div style={{ padding: '20px 22px', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <h3 className="ia-card-title">
-                    <Clock size={18} color="#2563eb" />
-                    Live Application Tracker
-                  </h3>
-                  <span style={{ fontSize: '12px', color: '#64748b' }}>
-                    Updated in real time
-                  </span>
-                </div>
-                <div style={{ overflowX: 'auto' }}>
-                  <table className="ia-app-table">
-                    <thead>
-                      <tr>
-                        <th>Role & Company</th>
-                        <th>Applied On</th>
-                        <th>Type & Stipend</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {applicationsList.map((app, idx) => (
-                        <tr key={idx}>
-                          <td>
-                            <div style={{ fontWeight: 700, color: '#071c46' }}>{app.title}</div>
-                            <div style={{ fontSize: '12px', color: '#64748b' }}>{app.company}</div>
-                          </td>
-                          <td style={{ fontSize: '12.5px' }}>{app.appliedDate}</td>
-                          <td>
-                            <div style={{ fontSize: '12px', fontWeight: 600 }}>{app.stipend}</div>
-                            <div style={{ fontSize: '11.5px', color: '#64748b' }}>{app.type}</div>
-                          </td>
-                          <td>
-                            <span className={`ia-status-badge ${app.statusClass}`}>
-                              {app.status}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            )}
-
-            {/* TAB 6: RESUME VAULT */}
-            {activeTab === 'resume' && (
-              <div className="ia-card">
-                <div className="ia-card-header">
-                  <h3 className="ia-card-title">
-                    <FileText size={18} color="#2563eb" />
-                    Resume & Documents
-                  </h3>
-                </div>
-
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '16px 20px',
-                  background: '#f8fafc',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: '12px',
-                  marginBottom: '16px'
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                    <div style={{
-                      width: '44px',
-                      height: '44px',
-                      borderRadius: '10px',
-                      background: '#fee2e2',
-                      color: '#dc2626',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontWeight: 800,
-                      fontSize: '12px'
-                    }}>
-                      PDF
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '14px', fontWeight: 700, color: '#071c46' }}>
-                        Kashish_Khichi_Resume_2026.pdf
-                      </div>
-                      <div style={{ fontSize: '12px', color: '#64748b' }}>
-                        142 KB • Updated 2 days ago • Verified
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ display: 'flex', gap: '8px' }}>
-                    <button className="ia-btn-secondary" onClick={handleDownloadResume}>
-                      <Download size={13} />
-                      Download
-                    </button>
-                    <button className="ia-btn-primary" onClick={() => showToast('Opening file selector to replace resume 📁')}>
-                      <Upload size={13} />
-                      Replace
-                    </button>
-                  </div>
-                </div>
-
-                <div className="ia-resume-box">
-                  <Upload size={28} color="#2563eb" style={{ marginBottom: '8px' }} />
-                  <div style={{ fontSize: '14px', fontWeight: 700, color: '#071c46', marginBottom: '4px' }}>
-                    Upload an updated resume
-                  </div>
-                  <div style={{ fontSize: '12px', color: '#64748b' }}>
-                    Supported formats: PDF, DOCX (Max size: 5MB)
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Right Sidebar Column */}
-          <div>
-            {/* Quick Contact Card */}
-            <div className="ia-card">
-              <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#071c46', marginBottom: '14px' }}>
-                Contact & Verification
-              </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13px' }}>
-                <div>
-                  <div style={{ color: '#64748b', fontSize: '11px', fontWeight: 700 }}>INSTITUTE EMAIL</div>
-                  <div style={{ fontWeight: 600, color: '#071c46' }}>{profile.email}</div>
-                </div>
-                <div>
-                  <div style={{ color: '#64748b', fontSize: '11px', fontWeight: 700 }}>PHONE NUMBER</div>
-                  <div style={{ fontWeight: 600, color: '#071c46' }}>{profile.phone}</div>
-                </div>
-                <div>
-                  <div style={{ color: '#64748b', fontSize: '11px', fontWeight: 700 }}>COLLEGE ROLL / ID</div>
-                  <div style={{ fontWeight: 600, color: '#071c46' }}>22/CS/104 (DTU Verified)</div>
-                </div>
-                <div>
-                  <div style={{ color: '#64748b', fontSize: '11px', fontWeight: 700 }}>CURRENT CGPA</div>
-                  <div style={{ fontWeight: 700, color: '#16a34a' }}>{profile.cgpa} / 10.0</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Application Tips Card */}
-            <div className="ia-card" style={{ background: 'linear-gradient(135deg, #eff6ff, #f8fafc)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                <Sparkles size={16} color="#2563eb" />
-                <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#1e40af' }}>InternAtlas Tip</h4>
-              </div>
-              <p style={{ fontSize: '12.5px', color: '#334155', lineHeight: '1.6', marginBottom: '12px' }}>
-                Students with verified GitHub and project links receive <strong>4x more interview shortlists</strong> from recruiters on InternAtlas.
-              </p>
-              <button
-                onClick={openEditModal}
-                style={{
-                  fontSize: '12px',
-                  fontWeight: 700,
-                  color: '#2563eb',
-                  background: '#ffffff',
-                  border: '1px solid #bfdbfe',
-                  padding: '6px 12px',
-                  borderRadius: '6px',
-                  cursor: 'pointer'
-                }}
-              >
-                Update Profile Links →
-              </button>
-            </div>
-          </div>
-        </div>
-      </main>
-
-      {/* Edit Profile Modal */}
-      {isEditModalOpen && (
-        <div className="ia-modal-overlay" onClick={() => setIsEditModalOpen(false)}>
-          <div className="ia-modal-container" onClick={e => e.stopPropagation()}>
-            <div className="ia-modal-header">
-              <h3>Edit Student Profile</h3>
-              <button className="ia-modal-close-btn" onClick={() => setIsEditModalOpen(false)}>
-                <X size={18} />
-              </button>
-            </div>
-
-            <form onSubmit={handleSaveProfile}>
-              <div className="ia-modal-body">
-                <div className="ia-form-group">
-                  <label className="ia-form-label">Full Name</label>
-                  <input
-                    type="text"
-                    className="ia-form-input"
-                    value={editFormData.fullName}
-                    onChange={e => setEditFormData({ ...editFormData, fullName: e.target.value })}
-                    required
-                  />
-                </div>
-
-                <div className="ia-form-group">
-                  <label className="ia-form-label">Professional Headline</label>
-                  <input
-                    type="text"
-                    className="ia-form-input"
-                    value={editFormData.headline}
-                    onChange={e => setEditFormData({ ...editFormData, headline: e.target.value })}
-                    required
-                  />
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
-                  <div className="ia-form-group">
-                    <label className="ia-form-label">College / University</label>
-                    <input
-                      type="text"
-                      className="ia-form-input"
-                      value={editFormData.college}
-                      onChange={e => setEditFormData({ ...editFormData, college: e.target.value })}
-                      required
-                    />
-                  </div>
-
-                  <div className="ia-form-group">
-                    <label className="ia-form-label">Graduation Year & CGPA</label>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-                      <input
-                        type="text"
-                        className="ia-form-input"
-                        value={editFormData.graduationYear}
-                        onChange={e => setEditFormData({ ...editFormData, graduationYear: e.target.value })}
-                        placeholder="Year (e.g. 2026)"
-                      />
-                      <input
-                        type="text"
-                        className="ia-form-input"
-                        value={editFormData.cgpa}
-                        onChange={e => setEditFormData({ ...editFormData, cgpa: e.target.value })}
-                        placeholder="CGPA (8.8)"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
-                  <div className="ia-form-group">
-                    <label className="ia-form-label">Email Address</label>
-                    <input
-                      type="email"
-                      className="ia-form-input"
-                      value={editFormData.email}
-                      onChange={e => setEditFormData({ ...editFormData, email: e.target.value })}
-                      required
-                    />
-                  </div>
-
-                  <div className="ia-form-group">
-                    <label className="ia-form-label">Phone Number</label>
-                    <input
-                      type="text"
-                      className="ia-form-input"
-                      value={editFormData.phone}
-                      onChange={e => setEditFormData({ ...editFormData, phone: e.target.value })}
-                    />
-                  </div>
-                </div>
-
-                <div className="ia-form-group">
-                  <label className="ia-form-label">About Me (Bio)</label>
-                  <textarea
-                    rows={4}
-                    className="ia-form-textarea"
-                    value={editFormData.bio}
-                    onChange={e => setEditFormData({ ...editFormData, bio: e.target.value })}
-                  />
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
-                  <div className="ia-form-group">
-                    <label className="ia-form-label">GitHub URL</label>
-                    <input
-                      type="url"
-                      className="ia-form-input"
-                      value={editFormData.github}
-                      onChange={e => setEditFormData({ ...editFormData, github: e.target.value })}
-                    />
-                  </div>
-                  <div className="ia-form-group">
-                    <label className="ia-form-label">LinkedIn URL</label>
-                    <input
-                      type="url"
-                      className="ia-form-input"
-                      value={editFormData.linkedin}
-                      onChange={e => setEditFormData({ ...editFormData, linkedin: e.target.value })}
-                    />
-                  </div>
-                </div>
-
-                {/* Manage Skills */}
-                <div className="ia-form-group">
-                  <label className="ia-form-label">Skills & Tech Stack</label>
-                  <div style={{ display: 'flex', gap: '8px', marginBottom: '10px' }}>
-                    <input
-                      type="text"
-                      className="ia-form-input"
-                      placeholder="Add a new skill (e.g. Next.js, Redux, Docker)"
-                      value={newSkillInput}
-                      onChange={e => setNewSkillInput(e.target.value)}
-                      onKeyDown={e => {
-                        if (e.key === 'Enter') {
-                          e.preventDefault();
-                          handleAddSkill();
-                        }
-                      }}
-                    />
-                    <button
-                      type="button"
-                      className="ia-btn-primary"
-                      onClick={handleAddSkill}
-                      style={{ whiteSpace: 'nowrap' }}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {profile.skills.map((skill) => (
+                    <div
+                      key={skill.name}
+                      className="flex items-center justify-between rounded-md border border-slate-200 bg-slate-50/60 px-3 py-2 text-xs"
                     >
-                      <Plus size={14} /> Add
-                    </button>
+                      <div>
+                        <p className="font-semibold text-slate-800">{skill.name}</p>
+                        <p className="text-[11px] text-slate-500">{skill.level}</p>
+                      </div>
+                      <button className="text-slate-300 hover:text-slate-600">
+                        <X size={13} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* 9. PORTFOLIO / WORK SAMPLES */}
+              <div className="border-b border-slate-200 py-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                    Portfolio / Work Samples
+                  </h3>
+                  <button
+                    onClick={() => alert("Add portfolio link")}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#1DA1F2] hover:underline"
+                  >
+                    <Plus size={13} />
+                    <span>Add portfolio/ work sample</span>
+                  </button>
+                </div>
+
+                <div className="space-y-2 text-xs">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="font-semibold text-slate-700">GitHub profile: </span>
+                      <a href={profile.github} target="_blank" rel="noreferrer" className="text-[#1DA1F2] hover:underline">
+                        {profile.github}
+                      </a>
+                    </div>
+                    <Edit2 size={13} className="text-slate-400 hover:text-slate-700 cursor-pointer" />
                   </div>
 
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                    {editFormData.skills.map((s, idx) => (
-                      <span
-                        key={idx}
-                        style={{
-                          fontSize: '12px',
-                          background: '#f1f5f9',
-                          color: '#071c46',
-                          border: '1px solid #cbd5e1',
-                          padding: '4px 10px',
-                          borderRadius: '9999px',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '6px'
-                        }}
-                      >
-                        {s.name}
-                        <Trash2
-                          size={12}
-                          color="#ef4444"
-                          style={{ cursor: 'pointer' }}
-                          onClick={() => handleRemoveSkill(s.name)}
-                        />
-                      </span>
-                    ))}
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="font-semibold text-slate-700">Developer portfolio: </span>
+                      <a href={profile.portfolio} target="_blank" rel="noreferrer" className="text-[#1DA1F2] hover:underline">
+                        {profile.portfolio}
+                      </a>
+                    </div>
+                    <Edit2 size={13} className="text-slate-400 hover:text-slate-700 cursor-pointer" />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="font-semibold text-slate-700">LinkedIn profile: </span>
+                      <a href={profile.linkedin} target="_blank" rel="noreferrer" className="text-[#1DA1F2] hover:underline">
+                        {profile.linkedin}
+                      </a>
+                    </div>
+                    <Edit2 size={13} className="text-slate-400 hover:text-slate-700 cursor-pointer" />
                   </div>
                 </div>
               </div>
 
-              <div className="ia-modal-footer">
+              {/* 10. ACCOMPLISHMENTS */}
+              <div className="pt-6">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                    Accomplishments / Additional Details
+                  </h3>
+                  <button
+                    onClick={() => alert("Add accomplishment")}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#1DA1F2] hover:underline"
+                  >
+                    <Plus size={13} />
+                    <span>Add accomplishment/ additional detail</span>
+                  </button>
+                </div>
+
+                <ul className="list-disc pl-4 space-y-1.5 text-xs text-slate-700">
+                  <li>School Scholar Badge recipient for consecutive academic distinction at DPS R.K. Puram.</li>
+                  <li>State-level Junior Science Olympiad Qualifier with Merit Distinction in Mathematics.</li>
+                  <li>Ranked top 10% in DTU departmental algorithmic coding and data structures assessments.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* APPLICATIONS TAB */}
+        {activeTab === "applications" && (
+          <div className="space-y-6">
+            <div>
+              <h1 className="text-2xl font-bold text-slate-900">My Applications</h1>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Track status of all your internship and job applications
+              </p>
+            </div>
+
+            <div className="overflow-x-auto rounded-lg border border-slate-200 bg-white shadow-xs">
+              <table className="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr className="border-b border-slate-200 bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-600">
+                    <th className="py-3 px-4">Company</th>
+                    <th className="py-3 px-4">Profile</th>
+                    <th className="py-3 px-4">Applied On</th>
+                    <th className="py-3 px-4">Number of Applicants</th>
+                    <th className="py-3 px-4">Application Status</th>
+                    <th className="py-3 px-4 text-center">Review Application</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {profile.applications.map((app) => {
+                    const statusClass =
+                      app.status === "Shortlisted"
+                        ? "bg-emerald-100 text-emerald-800"
+                        : app.status === "In-touch"
+                        ? "bg-blue-100 text-blue-800"
+                        : "bg-slate-100 text-slate-700";
+
+                    return (
+                      <tr key={app.id} className="hover:bg-slate-50/80 transition-colors">
+                        <td className="py-3.5 px-4 font-bold text-slate-900">{app.company}</td>
+                        <td className="py-3.5 px-4 font-medium text-slate-700">{app.role}</td>
+                        <td className="py-3.5 px-4 text-slate-500">{app.appliedDate}</td>
+                        <td className="py-3.5 px-4 text-slate-500">{app.applicants}</td>
+                        <td className="py-3.5 px-4">
+                          <span className={`inline-block rounded-full px-2.5 py-0.5 text-[11px] font-bold ${statusClass}`}>
+                            {app.status}
+                          </span>
+                        </td>
+                        <td className="py-3.5 px-4 text-center">
+                          <button
+                            onClick={() => alert(`Reviewing application for ${app.role} at ${app.company}`)}
+                            className="inline-flex items-center gap-1 text-[#1DA1F2] hover:underline font-semibold text-xs"
+                          >
+                            <Eye size={12} />
+                            <span>View</span>
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* BOOKMARKS TAB */}
+        {activeTab === "bookmarks" && (
+          <div className="space-y-6">
+            <div>
+              <h1 className="text-2xl font-bold text-slate-900">My Bookmarks</h1>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Internships and opportunities you have saved for later
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              {bookmarks.map((bm) => (
+                <div key={bm.id} className="rounded-lg border border-slate-200 bg-white p-5 shadow-xs">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                    <div>
+                      <h3 className="text-base font-bold text-slate-900">{bm.title}</h3>
+                      <p className="text-xs font-semibold text-slate-600 mt-0.5">{bm.company}</p>
+                      <div className="mt-2 text-xs text-slate-500">
+                        {bm.location} • {bm.duration} • <span className="font-bold text-slate-800">{bm.stipend}</span>
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={() => alert(`Applied to ${bm.title}!`)}
+                      className="rounded-md bg-[#1DA1F2] px-4 py-1.5 text-xs font-bold text-white hover:bg-blue-600 self-end sm:self-center"
+                    >
+                      Apply Now
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* PREFERENCES TAB */}
+        {activeTab === "preferences" && (
+          <div className="space-y-6">
+            <div>
+              <h1 className="text-2xl font-bold text-slate-900">Career Preferences</h1>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Tell us what kind of internships and opportunities you are looking for
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-slate-200 bg-white p-6 sm:p-8 shadow-xs space-y-4">
+              {prefSaved && (
+                <div className="rounded-md bg-emerald-50 p-3 text-xs font-bold text-emerald-800 border border-emerald-200 flex items-center gap-2">
+                  <Check size={16} /> Preferences saved successfully!
+                </div>
+              )}
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setPrefSaved(true);
+                  setTimeout(() => setPrefSaved(false), 2000);
+                }}
+                className="space-y-4 text-xs"
+              >
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">
+                    Fields of interest
+                  </label>
+                  <input
+                    type="text"
+                    value={preferences.fields.join(", ")}
+                    onChange={(e) =>
+                      setPreferences({
+                        ...preferences,
+                        fields: e.target.value.split(",").map((s) => s.trim())
+                      })
+                    }
+                    className="w-full rounded-md border border-slate-300 px-3 py-2 text-xs focus:border-[#1DA1F2] focus:outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">
+                    Preferred work mode
+                  </label>
+                  <select
+                    value={preferences.workMode}
+                    onChange={(e) => setPreferences({ ...preferences, workMode: e.target.value })}
+                    className="w-full rounded-md border border-slate-300 px-3 py-2 text-xs focus:border-[#1DA1F2] focus:outline-none"
+                  >
+                    <option value="Work from home (WFH) & Hybrid">Work from home (WFH) & Hybrid</option>
+                    <option value="Only Work from home (WFH)">Only Work from home (WFH)</option>
+                    <option value="Only In-office">Only In-office</option>
+                  </select>
+                </div>
+
+                <div>
+                  <button
+                    type="submit"
+                    className="rounded-md bg-[#1DA1F2] px-5 py-2 font-bold text-white hover:bg-blue-600 transition"
+                  >
+                    Save Preferences
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* EDIT PERSONAL DETAILS MODAL */}
+      {activeModal === "personal" && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs">
+          <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl text-xs">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-3 mb-4">
+              <h3 className="text-sm font-bold text-slate-900">Personal Details</h3>
+              <button onClick={() => setActiveModal(null)} className="text-slate-400 hover:text-slate-700">
+                <X size={16} />
+              </button>
+            </div>
+
+            <form onSubmit={handlePersonalSave} className="space-y-3.5">
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">Full Name</label>
+                <input
+                  type="text"
+                  required
+                  value={personalForm.fullName}
+                  onChange={(e) => setPersonalForm({ ...personalForm, fullName: e.target.value })}
+                  className="w-full rounded-md border border-slate-300 px-3 py-2 text-xs focus:border-[#1DA1F2] focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">Email</label>
+                <input
+                  type="email"
+                  required
+                  value={personalForm.email}
+                  onChange={(e) => setPersonalForm({ ...personalForm, email: e.target.value })}
+                  className="w-full rounded-md border border-slate-300 px-3 py-2 text-xs focus:border-[#1DA1F2] focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">Contact Number</label>
+                <input
+                  type="tel"
+                  required
+                  value={personalForm.phone}
+                  onChange={(e) => setPersonalForm({ ...personalForm, phone: e.target.value })}
+                  className="w-full rounded-md border border-slate-300 px-3 py-2 text-xs focus:border-[#1DA1F2] focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">Current City</label>
+                <input
+                  type="text"
+                  required
+                  value={personalForm.location}
+                  onChange={(e) => setPersonalForm({ ...personalForm, location: e.target.value })}
+                  className="w-full rounded-md border border-slate-300 px-3 py-2 text-xs focus:border-[#1DA1F2] focus:outline-none"
+                />
+              </div>
+
+              <div className="flex justify-end gap-2 pt-3 border-t border-slate-100">
                 <button
                   type="button"
-                  className="ia-btn-secondary"
-                  onClick={() => setIsEditModalOpen(false)}
+                  onClick={() => setActiveModal(null)}
+                  className="rounded-md border border-slate-200 px-4 py-1.5 font-semibold text-slate-600 hover:bg-slate-50"
                 >
                   Cancel
                 </button>
-                <button type="submit" className="ia-btn-primary">
-                  Save Changes
+                <button
+                  type="submit"
+                  className="rounded-md bg-[#1DA1F2] px-5 py-1.5 font-bold text-white hover:bg-blue-600"
+                >
+                  Save
                 </button>
               </div>
             </form>
