@@ -171,7 +171,15 @@ export default function StudentProfile({ onNavigateToEvents }) {
     try {
       const saved = localStorage.getItem("internatlas_student_profile");
       if (saved) {
-        setProfile(JSON.parse(saved));
+        const parsed = JSON.parse(saved);
+        if (parsed && Array.isArray(parsed.education) && Array.isArray(parsed.applications)) {
+          setProfile(parsed);
+        } else {
+          setProfile(initialProfileData);
+          localStorage.setItem("internatlas_student_profile", JSON.stringify(initialProfileData));
+        }
+      } else {
+        localStorage.setItem("internatlas_student_profile", JSON.stringify(initialProfileData));
       }
     } catch (e) {
       // ignore
@@ -251,7 +259,7 @@ export default function StudentProfile({ onNavigateToEvents }) {
               <Briefcase size={16} />
               <span>My Applications</span>
               <span className="rounded-full bg-blue-100 px-2 py-0.2 text-[11px] font-bold text-blue-700">
-                {profile.applications.length}
+                {(profile?.applications || []).length}
               </span>
             </button>
 
@@ -666,7 +674,7 @@ export default function StudentProfile({ onNavigateToEvents }) {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {profile.applications.map((app) => {
+                  {(profile?.applications || []).map((app) => {
                     const statusClass =
                       app.status === "Shortlisted"
                         ? "bg-emerald-100 text-emerald-800"
