@@ -177,34 +177,60 @@ export default function StudentProfile({ onNavigateToEvents }) {
   const [activeTab, setActiveTab] = useState("overview");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editFormData, setEditFormData] = useState({
-    fullName: profile.fullName,
-    headline: profile.headline,
-    college: profile.college,
-    location: profile.location,
-    email: profile.email,
-    phone: profile.phone,
-    about: profile.about,
+    fullName: initialProfileData.fullName,
+    headline: initialProfileData.headline,
+    college: initialProfileData.college,
+    location: initialProfileData.location,
+    email: initialProfileData.email,
+    phone: initialProfileData.phone,
+    about: initialProfileData.about,
   });
+
+  useEffect(() => {
+    document.body.style.backgroundColor = "#f8fafc";
+    return () => {
+      document.body.style.backgroundColor = "";
+    };
+  }, []);
 
   useEffect(() => {
     try {
       const saved = localStorage.getItem("internatlas_student_profile");
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (parsed && Array.isArray(parsed.education)) {
-          setProfile((prev) => ({ ...prev, ...parsed }));
+        if (parsed && typeof parsed === "object") {
+          const merged = {
+            ...initialProfileData,
+            ...parsed,
+            stats: {
+              ...initialProfileData.stats,
+              ...(parsed.stats || {}),
+            },
+            education: Array.isArray(parsed.education) && parsed.education.length > 0 ? parsed.education : initialProfileData.education,
+            projects: Array.isArray(parsed.projects) && parsed.projects.length > 0 ? parsed.projects : initialProfileData.projects,
+            skills: Array.isArray(parsed.skills) && parsed.skills.length > 0 ? parsed.skills : initialProfileData.skills,
+            applications: Array.isArray(parsed.applications) && parsed.applications.length > 0 ? parsed.applications : initialProfileData.applications,
+            resume: {
+              ...initialProfileData.resume,
+              ...(parsed.resume || {}),
+            },
+          };
+          setProfile(merged);
           setEditFormData({
-            fullName: parsed.fullName || profile.fullName,
-            headline: parsed.headline || profile.headline,
-            college: parsed.college || profile.college,
-            location: parsed.location || profile.location,
-            email: parsed.email || profile.email,
-            phone: parsed.phone || profile.phone,
-            about: parsed.about || profile.about,
+            fullName: merged.fullName || initialProfileData.fullName,
+            headline: merged.headline || initialProfileData.headline,
+            college: merged.college || initialProfileData.college,
+            location: merged.location || initialProfileData.location,
+            email: merged.email || initialProfileData.email,
+            phone: merged.phone || initialProfileData.phone,
+            about: merged.about || initialProfileData.about,
           });
         }
       }
-    } catch {}
+    } catch (e) {
+      console.warn("Failed to load saved profile, using defaults:", e);
+      setProfile(initialProfileData);
+    }
   }, []);
 
   const handleEditSubmit = (e) => {
@@ -217,12 +243,19 @@ export default function StudentProfile({ onNavigateToEvents }) {
     setIsEditModalOpen(false);
   };
 
+  const safeEducation = Array.isArray(profile?.education) ? profile.education : initialProfileData.education;
+  const safeProjects = Array.isArray(profile?.projects) ? profile.projects : initialProfileData.projects;
+  const safeSkills = Array.isArray(profile?.skills) ? profile.skills : initialProfileData.skills;
+  const safeApplications = Array.isArray(profile?.applications) ? profile.applications : initialProfileData.applications;
+  const safeStats = profile?.stats || initialProfileData.stats;
+  const safeResume = profile?.resume || initialProfileData.resume;
+
   const tabs = [
     { id: "overview", label: "Overview & Bio", icon: User, count: null },
-    { id: "academics", label: "Academics", icon: GraduationCap, count: profile.education.length },
-    { id: "projects", label: "Projects & Internships", icon: Briefcase, count: profile.projects.length },
-    { id: "skills", label: "Verified Skills", icon: Award, count: profile.skills.length },
-    { id: "applications", label: "Application Tracker", icon: CheckCircle2, count: profile.applications.length },
+    { id: "academics", label: "Academics", icon: GraduationCap, count: safeEducation.length },
+    { id: "projects", label: "Projects & Internships", icon: Briefcase, count: safeProjects.length },
+    { id: "skills", label: "Verified Skills", icon: Award, count: safeSkills.length },
+    { id: "applications", label: "Application Tracker", icon: CheckCircle2, count: safeApplications.length },
     { id: "resume", label: "Resume Vault", icon: FileText, count: null },
   ];
 
@@ -244,7 +277,7 @@ export default function StudentProfile({ onNavigateToEvents }) {
 
           <div className="iap-header-actions">
             <div className="iap-profile-badge" onClick={() => setIsEditModalOpen(true)}>
-              <div className="iap-avatar-mini">{profile.fullName.charAt(0)}</div>
+              <div className="iap-avatar-mini">{(profile?.fullName || "K").charAt(0)}</div>
               <span className="iap-profile-name">Profile</span>
             </div>
           </div>
@@ -264,8 +297,10 @@ export default function StudentProfile({ onNavigateToEvents }) {
             <button
               className="iap-banner-btn-secondary"
               onClick={() => {
-                navigator.clipboard?.writeText(window.location.href);
-                alert("Profile URL copied to clipboard!");
+                try {
+                  navigator.clipboard?.writeText(window.location.href);
+                  alert("Profile URL copied to clipboard!");
+                } catch {}
               }}
             >
               <Share2 size={13} />
@@ -285,30 +320,30 @@ export default function StudentProfile({ onNavigateToEvents }) {
         <div className="iap-profile-card">
           <div className="iap-profile-top">
             <div className="iap-profile-identity">
-              <div className="iap-avatar-large">{profile.fullName.charAt(0)}</div>
+              <div className="iap-avatar-large">{(profile?.fullName || "K").charAt(0)}</div>
 
               <div className="iap-identity-info">
                 <div className="iap-name-row">
-                  <h1 className="iap-fullname">{profile.fullName}</h1>
+                  <h1 className="iap-fullname">{profile?.fullName || "Kashish Khichi"}</h1>
                   <span className="iap-candidate-pill">
                     <ShieldCheck size={13} /> Verified
                   </span>
                 </div>
 
-                <p className="iap-headline">{profile.headline}</p>
+                <p className="iap-headline">{profile?.headline}</p>
 
                 <div className="iap-meta-row">
                   <span className="iap-meta-item">
-                    <Building size={14} /> {profile.college}
+                    <Building size={14} /> {profile?.college}
                   </span>
                   <span className="iap-meta-item">
-                    <MapPin size={14} /> {profile.location}
+                    <MapPin size={14} /> {profile?.location}
                   </span>
                   <span className="iap-meta-item">
-                    <Mail size={14} /> {profile.email}
+                    <Mail size={14} /> {profile?.email}
                   </span>
                   <span className="iap-meta-item">
-                    <Phone size={14} /> {profile.phone}
+                    <Phone size={14} /> {profile?.phone}
                   </span>
                 </div>
               </div>
@@ -320,10 +355,10 @@ export default function StudentProfile({ onNavigateToEvents }) {
                 <span className="iap-comp-title">
                   <Sparkles size={14} style={{ color: "#f59e0b" }} /> Profile Strength
                 </span>
-                <span className="iap-comp-percent">{profile.completeness}%</span>
+                <span className="iap-comp-percent">{profile?.completeness || 94}%</span>
               </div>
               <div className="iap-progress-track">
-                <div className="iap-progress-fill" style={{ width: `${profile.completeness}%` }} />
+                <div className="iap-progress-fill" style={{ width: `${profile?.completeness || 94}%` }} />
               </div>
               <p className="iap-comp-desc">All essential milestones verified. Recruiter-ready profile.</p>
             </div>
@@ -332,15 +367,15 @@ export default function StudentProfile({ onNavigateToEvents }) {
           {/* Social Row */}
           <div className="iap-profile-bottom">
             <div className="iap-social-links">
-              <a href={profile.github} target="_blank" rel="noreferrer" className="iap-social-btn">
+              <a href={profile?.github || "#"} target="_blank" rel="noreferrer" className="iap-social-btn">
                 <span>GitHub</span>
                 <ExternalLink size={11} />
               </a>
-              <a href={profile.linkedin} target="_blank" rel="noreferrer" className="iap-social-btn">
+              <a href={profile?.linkedin || "#"} target="_blank" rel="noreferrer" className="iap-social-btn">
                 <span>LinkedIn</span>
                 <ExternalLink size={11} />
               </a>
-              <a href={profile.portfolio} target="_blank" rel="noreferrer" className="iap-social-btn">
+              <a href={profile?.portfolio || "#"} target="_blank" rel="noreferrer" className="iap-social-btn">
                 <span>Portfolio</span>
                 <ExternalLink size={11} />
               </a>
@@ -348,13 +383,13 @@ export default function StudentProfile({ onNavigateToEvents }) {
 
             <div className="iap-stats-strip">
               <span>
-                <strong>{profile.stats.applications}</strong> Applications
+                <strong>{safeStats.applications}</strong> Applications
               </span>
               <span>
-                <strong>{profile.stats.interviews}</strong> Interviews
+                <strong>{safeStats.interviews}</strong> Interviews
               </span>
               <span>
-                <strong>{profile.stats.skillsVerified}</strong> Skills Verified
+                <strong>{safeStats.skillsVerified}</strong> Skills Verified
               </span>
             </div>
           </div>
@@ -389,63 +424,67 @@ export default function StudentProfile({ onNavigateToEvents }) {
                   <User size={18} style={{ color: "#2563eb" }} /> Professional Summary
                 </h2>
                 <p style={{ fontSize: "13px", lineHeight: "1.6", color: "#475569", whiteSpace: "pre-line" }}>
-                  {profile.about}
+                  {profile?.about}
                 </p>
               </div>
 
-              <div className="iap-card">
-                <div className="iap-card-header">
-                  <h2 className="iap-card-title">
-                    <GraduationCap size={18} style={{ color: "#2563eb" }} /> Current Education
-                  </h2>
-                  <button
-                    onClick={() => setActiveTab("academics")}
-                    style={{ background: "none", border: "none", color: "#2563eb", fontSize: "12px", fontWeight: 700, cursor: "pointer" }}
-                  >
-                    View All &gt;
-                  </button>
-                </div>
-                <div className="iap-edu-item">
-                  <div className="iap-edu-top">
-                    <div>
-                      <div className="iap-edu-degree">{profile.education[0].degree}</div>
-                      <div className="iap-edu-inst">{profile.education[0].institution}</div>
+              {safeEducation.length > 0 && (
+                <div className="iap-card">
+                  <div className="iap-card-header">
+                    <h2 className="iap-card-title">
+                      <GraduationCap size={18} style={{ color: "#2563eb" }} /> Current Education
+                    </h2>
+                    <button
+                      onClick={() => setActiveTab("academics")}
+                      style={{ background: "none", border: "none", color: "#2563eb", fontSize: "12px", fontWeight: 700, cursor: "pointer" }}
+                    >
+                      View All &gt;
+                    </button>
+                  </div>
+                  <div className="iap-edu-item">
+                    <div className="iap-edu-top">
+                      <div>
+                        <div className="iap-edu-degree">{safeEducation[0].degree}</div>
+                        <div className="iap-edu-inst">{safeEducation[0].institution}</div>
+                      </div>
+                      <span className="iap-grade-badge">{safeEducation[0].grade}</span>
                     </div>
-                    <span className="iap-grade-badge">{profile.education[0].grade}</span>
-                  </div>
-                  <div className="iap-edu-meta">
-                    {profile.education[0].duration} • {profile.education[0].location}
+                    <div className="iap-edu-meta">
+                      {safeEducation[0].duration} • {safeEducation[0].location}
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
-              <div className="iap-card">
-                <div className="iap-card-header">
-                  <h2 className="iap-card-title">
-                    <Briefcase size={18} style={{ color: "#2563eb" }} /> Featured Project
-                  </h2>
-                  <button
-                    onClick={() => setActiveTab("projects")}
-                    style={{ background: "none", border: "none", color: "#2563eb", fontSize: "12px", fontWeight: 700, cursor: "pointer" }}
-                  >
-                    View All &gt;
-                  </button>
-                </div>
-                <div className="iap-proj-item">
-                  <div className="iap-proj-top">
+              {safeProjects.length > 0 && (
+                <div className="iap-card">
+                  <div className="iap-card-header">
+                    <h2 className="iap-card-title">
+                      <Briefcase size={18} style={{ color: "#2563eb" }} /> Featured Project
+                    </h2>
+                    <button
+                      onClick={() => setActiveTab("projects")}
+                      style={{ background: "none", border: "none", color: "#2563eb", fontSize: "12px", fontWeight: 700, cursor: "pointer" }}
+                    >
+                      View All &gt;
+                    </button>
+                  </div>
+                  <div className="iap-proj-item">
+                    <div className="iap-proj-top">
+                      <div>
+                        <div className="iap-proj-title">{safeProjects[0].title}</div>
+                        <div className="iap-proj-role">{safeProjects[0].role} • {safeProjects[0].duration}</div>
+                      </div>
+                    </div>
+                    <p className="iap-proj-desc">{safeProjects[0].description}</p>
                     <div>
-                      <div className="iap-proj-title">{profile.projects[0].title}</div>
-                      <div className="iap-proj-role">{profile.projects[0].role} • {profile.projects[0].duration}</div>
+                      {(safeProjects[0].tags || []).map((t) => (
+                        <span key={t} className="iap-tag-pill">{t}</span>
+                      ))}
                     </div>
                   </div>
-                  <p className="iap-proj-desc">{profile.projects[0].description}</p>
-                  <div>
-                    {profile.projects[0].tags.map((t) => (
-                      <span key={t} className="iap-tag-pill">{t}</span>
-                    ))}
-                  </div>
                 </div>
-              </div>
+              )}
             </div>
           )}
 
@@ -456,7 +495,7 @@ export default function StudentProfile({ onNavigateToEvents }) {
                 <GraduationCap size={18} style={{ color: "#2563eb" }} /> Academic Qualifications & Board Records
               </h2>
               <div style={{ marginTop: "16px" }}>
-                {profile.education.map((edu) => (
+                {safeEducation.map((edu) => (
                   <div key={edu.id} className="iap-edu-item">
                     <div className="iap-edu-top">
                       <div>
@@ -480,7 +519,7 @@ export default function StudentProfile({ onNavigateToEvents }) {
                 <Briefcase size={18} style={{ color: "#2563eb" }} /> Projects & Engineering Experience
               </h2>
               <div style={{ marginTop: "16px" }}>
-                {profile.projects.map((proj) => (
+                {safeProjects.map((proj) => (
                   <div key={proj.id} className="iap-proj-item">
                     <div className="iap-proj-top">
                       <div>
@@ -496,7 +535,7 @@ export default function StudentProfile({ onNavigateToEvents }) {
                     </div>
                     <p className="iap-proj-desc">{proj.description}</p>
                     <div>
-                      {proj.tags.map((t) => (
+                      {(proj.tags || []).map((t) => (
                         <span key={t} className="iap-tag-pill">{t}</span>
                       ))}
                     </div>
@@ -513,7 +552,7 @@ export default function StudentProfile({ onNavigateToEvents }) {
                 <Award size={18} style={{ color: "#2563eb" }} /> Verified Technical Skills & Endorsements
               </h2>
               <div className="iap-skills-grid" style={{ marginTop: "16px" }}>
-                {profile.skills.map((skill) => (
+                {safeSkills.map((skill) => (
                   <div key={skill.name} className="iap-skill-card">
                     <div>
                       <div className="iap-skill-name">{skill.name}</div>
@@ -545,7 +584,7 @@ export default function StudentProfile({ onNavigateToEvents }) {
                     </tr>
                   </thead>
                   <tbody>
-                    {profile.applications.map((app) => {
+                    {safeApplications.map((app) => {
                       const statusClass =
                         app.status === "Shortlisted"
                           ? "iap-status-shortlisted"
@@ -586,16 +625,16 @@ export default function StudentProfile({ onNavigateToEvents }) {
                     <FileText size={18} style={{ color: "#2563eb" }} /> Verified ATS Resume Vault
                   </h2>
                   <p style={{ fontSize: "12px", color: "#64748b", marginTop: "2px" }}>
-                    {profile.resume.fileName} • {profile.resume.size} • {profile.resume.uploadedAt}
+                    {safeResume.fileName} • {safeResume.size} • {safeResume.uploadedAt}
                   </p>
                 </div>
-                <span className="iap-grade-badge">ATS Score: {profile.resume.atsScore}/100</span>
+                <span className="iap-grade-badge">ATS Score: {safeResume.atsScore}/100</span>
               </div>
 
               <div className="iap-vault-card">
                 <FileText size={44} className="iap-vault-icon" />
                 <h3 style={{ fontSize: "15px", fontWeight: 800, color: "#071c46" }}>
-                  {profile.fullName} — Software Engineering Resume
+                  {(profile?.fullName || "Kashish Khichi")} — Software Engineering Resume
                 </h3>
                 <p style={{ fontSize: "12px", color: "#64748b", marginTop: "4px" }}>
                   Formatted for automated screening & campus hiring drives.
