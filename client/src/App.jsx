@@ -25,8 +25,12 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { initialEvents, initialCategories, initialStats } from './data/initialEvents';
+import StudentProfile from './components/StudentProfile';
 
 export default function App() {
+  // Active module view ('profile' or 'events')
+  const [activeView, setActiveView] = useState('profile');
+
   // Data states
   const [events, setEvents] = useState(initialEvents);
   const [stats, setStats] = useState(initialStats);
@@ -366,6 +370,10 @@ export default function App() {
     setIsHostModalOpen(false);
     showToast('Cultural Event Published Successfully! 🎪', 'success');
   };
+
+  if (activeView === 'profile') {
+    return <StudentProfile onNavigateToEvents={() => setActiveView('events')} />;
+  }
 
   return (
     <div className="min-h-screen">

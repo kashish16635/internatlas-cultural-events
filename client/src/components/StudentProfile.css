@@ -1,0 +1,943 @@
+/* ========================================================
+   InternAtlas Student Profile - Design System (Light Theme)
+   Matches internatlas.in exact visual guidelines:
+   - Clean white cards with border #E2E8F0
+   - Deep navy primary text #071C46
+   - Brand blue #2563EB and blue-hover #1D4ED8
+   - Cyan accents #06B6D4
+   - Background #F8FAFC
+   ======================================================== */
+
+.ia-profile-wrapper {
+  min-height: 100vh;
+  background-color: #f8fafc;
+  color: #071c46;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  padding-bottom: 80px;
+}
+
+/* Header */
+.ia-nav-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 58px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ia-nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.ia-logo {
+  font-size: 20px;
+  font-weight: 900;
+  color: #071c46;
+  text-decoration: none;
+  letter-spacing: -0.04em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ia-logo-dot {
+  color: #2563eb;
+}
+
+.ia-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.ia-nav-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+
+.ia-nav-link:hover {
+  color: #2563eb;
+  background: #f1f5f9;
+}
+
+.ia-nav-link.active {
+  color: #2563eb;
+  background: #eff6ff;
+  font-weight: 700;
+}
+
+.ia-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ia-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #071c46;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.ia-icon-btn:hover {
+  border-color: #93c5fd;
+  background: #f8fafc;
+}
+
+.ia-badge-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 7px;
+  height: 7px;
+  background: #ef4444;
+  border-radius: 50%;
+  border: 1.5px solid #fff;
+}
+
+.ia-user-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px 4px 4px;
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ia-user-pill:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.ia-avatar-sm {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb, #06b6d4);
+  color: #fff;
+  font-weight: 700;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main Container */
+.ia-main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px;
+}
+
+/* Breadcrumb Bar */
+.ia-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+.ia-breadcrumb a {
+  color: #64748b;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.ia-breadcrumb a:hover {
+  color: #2563eb;
+}
+
+/* Profile Header Card */
+.ia-profile-hero-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 10px 25px -5px rgba(0,0,0,0.04);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.ia-cover-banner {
+  height: 140px;
+  background: linear-gradient(135deg, #071c46 0%, #1e3a8a 50%, #2563eb 85%, #38bdf8 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.ia-cover-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  background-image: radial-gradient(#ffffff 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+}
+
+.ia-cover-badge {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.ia-hero-content {
+  padding: 0 28px 24px 28px;
+  position: relative;
+}
+
+.ia-hero-top-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: -55px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ia-avatar-wrapper {
+  position: relative;
+}
+
+.ia-avatar-lg {
+  width: 104px;
+  height: 104px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: 800;
+  border: 4px solid #ffffff;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+}
+
+.ia-status-dot {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #10b981;
+  border: 3px solid #ffffff;
+}
+
+.ia-avatar-edit-btn {
+  position: absolute;
+  top: 2px;
+  right: -6px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #475569;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  transition: all 0.2s ease;
+}
+
+.ia-avatar-edit-btn:hover {
+  background: #f1f5f9;
+  color: #2563eb;
+}
+
+.ia-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ia-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #2563eb;
+  color: #ffffff;
+  border: 1px solid transparent;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+}
+
+.ia-btn-primary:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.ia-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  color: #071c46;
+  border: 1px solid #cbd5e1;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ia-btn-secondary:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+/* Student Bio Details */
+.ia-profile-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.ia-profile-name {
+  font-size: 26px;
+  font-weight: 800;
+  color: #071c46;
+  letter-spacing: -0.03em;
+}
+
+.ia-verified-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #dbeafe;
+  color: #1e40af;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 9999px;
+}
+
+.ia-profile-headline {
+  font-size: 15px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 8px;
+}
+
+.ia-profile-meta-chips {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 16px;
+}
+
+.ia-meta-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.ia-social-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid #f1f5f9;
+  flex-wrap: wrap;
+}
+
+.ia-social-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.ia-social-badge:hover {
+  border-color: #93c5fd;
+  color: #2563eb;
+  background: #eff6ff;
+}
+
+/* Profile Strength Bar */
+.ia-strength-banner {
+  background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+  border: 1px solid #bfdbfe;
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ia-strength-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 260px;
+}
+
+.ia-strength-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid #2563eb;
+  color: #2563eb;
+  font-weight: 800;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.15);
+}
+
+.ia-strength-text h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #071c46;
+  margin-bottom: 2px;
+}
+
+.ia-strength-text p {
+  font-size: 12px;
+  color: #475569;
+}
+
+.ia-strength-bar-bg {
+  width: 100%;
+  max-width: 220px;
+  height: 8px;
+  background: #dbeafe;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.ia-strength-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb, #10b981);
+  border-radius: 9999px;
+}
+
+/* Stat Counters Row */
+.ia-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.ia-stat-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.2s ease;
+}
+
+.ia-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.ia-stat-icon-box {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ia-stat-number {
+  font-size: 20px;
+  font-weight: 800;
+  color: #071c46;
+  line-height: 1.1;
+}
+
+.ia-stat-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+/* Tabs Navigation */
+.ia-profile-nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 24px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.ia-profile-nav-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.ia-tab-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 16px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #64748b;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.ia-tab-item:hover {
+  color: #071c46;
+}
+
+.ia-tab-item.active {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+  font-weight: 700;
+}
+
+.ia-tab-count {
+  font-size: 11px;
+  background: #f1f5f9;
+  color: #475569;
+  padding: 2px 7px;
+  border-radius: 9999px;
+}
+
+.ia-tab-item.active .ia-tab-count {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+/* Tab Content Panels */
+.ia-panel-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .ia-panel-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ia-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.ia-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.ia-card-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #071c46;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ia-card-action-btn {
+  font-size: 12px;
+  font-weight: 700;
+  color: #2563eb;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ia-card-action-btn:hover {
+  background: #dbeafe;
+}
+
+/* Education / Experience Timeline */
+.ia-timeline-item {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 22px;
+}
+
+.ia-timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.ia-timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 14px;
+  bottom: -18px;
+  width: 2px;
+  background: #e2e8f0;
+}
+
+.ia-timeline-item:last-child::before {
+  display: none;
+}
+
+.ia-timeline-dot {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid #2563eb;
+}
+
+.ia-item-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #071c46;
+  margin-bottom: 2px;
+}
+
+.ia-item-sub {
+  font-size: 13px;
+  color: #334155;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.ia-item-meta {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.ia-item-desc {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* Skills Badges */
+.ia-skills-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ia-skill-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #f1f5f9;
+  color: #071c46;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.ia-skill-pill:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #2563eb;
+}
+
+.ia-skill-verified {
+  color: #0284c7;
+}
+
+/* Project Card */
+.ia-project-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 14px;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.ia-project-card:hover {
+  border-color: #93c5fd;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.ia-project-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.ia-project-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #071c46;
+}
+
+.ia-project-links {
+  display: flex;
+  gap: 8px;
+}
+
+.ia-project-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #2563eb;
+  text-decoration: none;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+}
+
+.ia-project-link-btn:hover {
+  background: #dbeafe;
+}
+
+/* Applications Tracker Table */
+.ia-app-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.ia-app-table th {
+  text-align: left;
+  padding: 12px 14px;
+  background: #f8fafc;
+  color: #64748b;
+  font-weight: 700;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ia-app-table td {
+  padding: 14px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+}
+
+.ia-app-table tr:hover td {
+  background: #f8fafc;
+}
+
+.ia-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ia-status-shortlisted {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.ia-status-review {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.ia-status-applied {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+/* Resume Box */
+.ia-resume-box {
+  border: 2px dashed #cbd5e1;
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+  background: #f8fafc;
+  transition: all 0.2s ease;
+}
+
+.ia-resume-box:hover {
+  border-color: #2563eb;
+  background: #eff6ff;
+}
+
+/* Modal */
+.ia-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 28, 70, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.ia-modal-container {
+  background: #ffffff;
+  width: 100%;
+  max-width: 640px;
+  max-height: 90vh;
+  border-radius: 20px;
+  overflow-y: auto;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.ia-modal-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ia-modal-header h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #071c46;
+}
+
+.ia-modal-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.ia-modal-close-btn:hover {
+  background: #f1f5f9;
+  color: #071c46;
+}
+
+.ia-modal-body {
+  padding: 24px;
+}
+
+.ia-form-group {
+  margin-bottom: 16px;
+}
+
+.ia-form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #071c46;
+  margin-bottom: 6px;
+}
+
+.ia-form-input, .ia-form-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 13.5px;
+  color: #071c46;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.ia-form-input:focus, .ia-form-textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.ia-modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
