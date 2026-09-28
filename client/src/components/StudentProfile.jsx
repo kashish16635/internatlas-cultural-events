@@ -176,12 +176,27 @@ export default function StudentProfile({ onNavigateToEvents }) {
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed && Array.isArray(parsed.education) && Array.isArray(parsed.applications)) {
-          setProfile(parsed);
-          setObjectiveText(parsed.careerObjective || initialProfileData.careerObjective);
+          const merged = {
+            ...parsed,
+            phone: "+91 9713424201",
+            location: "Ujjain",
+            careerObjective: parsed.careerObjective || initialProfileData.careerObjective
+          };
+          setProfile(merged);
+          setPersonalForm({
+            fullName: merged.fullName,
+            email: merged.email,
+            phone: merged.phone,
+            location: merged.location
+          });
+          setObjectiveText(merged.careerObjective);
+          localStorage.setItem("internatlas_student_profile", JSON.stringify(merged));
         } else {
           setProfile(initialProfileData);
           localStorage.setItem("internatlas_student_profile", JSON.stringify(initialProfileData));
         }
+      } else {
+        localStorage.setItem("internatlas_student_profile", JSON.stringify(initialProfileData));
       }
     } catch (e) {}
   }, []);
@@ -221,7 +236,7 @@ export default function StudentProfile({ onNavigateToEvents }) {
             </span>
           </div>
 
-          <div className="ish-header-right" ref={dropdownRef}>
+          <div className="ish-header-right">
             <span className="ish-nav-link" onClick={() => setActiveView("resume")}>
               Internships
             </span>
@@ -232,19 +247,25 @@ export default function StudentProfile({ onNavigateToEvents }) {
               Jobs
             </span>
 
-            {/* Avatar Pill Button */}
+            {/* Avatar Pill Button with HOVER */}
             <div
-              className="ish-avatar-btn"
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              title="Click to view profile menu"
+              className="ish-avatar-wrapper"
+              ref={dropdownRef}
+              onMouseEnter={() => setIsDropdownOpen(true)}
+              onMouseLeave={() => setIsDropdownOpen(false)}
             >
-              <span>K</span>
-              <ChevronDown size={12} style={{ marginLeft: '2px' }} />
-            </div>
+              <div
+                className="ish-avatar-btn"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                title="Hover or click to view profile menu"
+              >
+                <span>K</span>
+                <ChevronDown size={12} style={{ marginLeft: '2px' }} />
+              </div>
 
-            {/* USER POPUP DROPDOWN (Exact Internshala Layout) */}
-            {isDropdownOpen && (
-              <div className="ish-dropdown-menu">
+              {/* USER POPUP DROPDOWN (Exact Internshala Layout) */}
+              {isDropdownOpen && (
+                <div className="ish-dropdown-menu">
                 <div className="ish-dropdown-header">
                   <p className="ish-dropdown-name">{profile.fullName}</p>
                   <p className="ish-dropdown-email">{profile.email}</p>
